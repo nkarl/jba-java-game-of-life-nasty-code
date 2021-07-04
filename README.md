@@ -1,3 +1,3 @@
 # [JBA-Jv] Conway's Game of Life
 
-Learning about parallelism and multithreading in this project.
+Learning more about & applying (concurrency, parallelism) via handling processes and threads in this project.
