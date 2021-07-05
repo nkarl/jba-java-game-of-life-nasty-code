@@ -7,7 +7,7 @@ public class Life extends Model implements View {
 
     enum STATE {ALIVE, DEAD}
 
-    int MIN, MAX;
+//    int MIN, MAX;
 
     /**
      * Constructor.
@@ -16,8 +16,8 @@ public class Life extends Model implements View {
      */
     public Life(int size, long seed) {
         super(size);
-        this.MIN = 0;
-        this.MAX = size - 1;
+//        this.MIN = 0;
+//        this.MAX = size - 1;
         Random random = new Random(seed);
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
@@ -32,7 +32,6 @@ public class Life extends Model implements View {
      * @param gens the total number of generations to propagate through.
      */
     public void propagate(int gens) {
-//        for (int i = this.gen; i < gens; ++i) {
         if (gens > 0) {
             for (int i = 1; i <= gens; ++i) {
                 generate();
@@ -84,22 +83,26 @@ public class Life extends Model implements View {
 
 
     /**
-     * Determine cell's life the borders.
+     * Determine a cell's life at the borders.
      * @param a x coordinate
      * @param b y coordinate
      * @return the state of the cell
      */
     STATE atBorder(int a, int b) {
         int neighbors = 0;
+        int MIN = 0;
+        int MAX = this.size - 1;
+
         int r = (a == 0) ? MAX : a - 1;  // row sentinel
         for (int i = 0; i < 3; ++i) {
             int c = (b == 0) ? MAX : b - 1;  // column sentinel
             for (int j = 0; j < 3; ++j) {
-                if (r == a && c == b) continue;
                 if (this.map[r][c] == 1) ++neighbors;
                 if (neighbors > 3) break;
+//                neighbors += (this.map[r][c] == 1) ? 1 : 0;
                 ++c;
                 if (c > MAX) c = MIN; // wrap around
+                if (r == a && c == b) --neighbors;  // continue if self
             }
             ++r;
             if (r > MAX) r = MIN; // wrap around
@@ -109,7 +112,7 @@ public class Life extends Model implements View {
 
 
     /**
-     * Determine cell's life at the center.
+     * Determine a cell's life at the center.
      * @param a x coordinate
      * @param b y coordinate
      * @return the state of the cell
