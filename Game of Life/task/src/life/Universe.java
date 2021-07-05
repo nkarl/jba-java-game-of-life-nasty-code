@@ -22,12 +22,8 @@ public class Universe extends Model implements View {
     public void view() {
         for (var row : this.map) {
             for (int cell : row) {
-                if (cell == 1) {
-                    System.out.print('O');
-                }
-                else {
-                    System.out.print(' ');
-                }
+                if (cell == 1) System.out.print('O');
+                else System.out.print(' ');
             }
             System.out.print('\n');
         }
