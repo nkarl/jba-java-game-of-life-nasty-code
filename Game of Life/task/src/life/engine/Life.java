@@ -48,9 +48,10 @@ public class Life extends Model implements View {
      */
     STATE liveOrDie(int a, int b) {
         LOCALE location;
-        location = check_location(a, b);
+        location = locate(a, b);
         return (location == LOCALE.CENTER) ?
-                atCenter(a, b) : atBorder(a, b);
+                atCenter(a, b) :
+                atBorder(a, b);
     }
 
 
@@ -60,9 +61,10 @@ public class Life extends Model implements View {
      * @param b y coordinate
      * @return the locale of the cell
      */
-    LOCALE check_location(int a, int b) {
+    LOCALE locate(int a, int b) {
         return ((a > 0 && a < this.size) && (b > 0 && b < this.size)) ?
-                LOCALE.CENTER : LOCALE.BORDER;
+                LOCALE.CENTER :
+                LOCALE.BORDER;
     }
 
 
@@ -106,7 +108,9 @@ public class Life extends Model implements View {
             if (r > MAX) r = MIN; // wrap around
         }
         if (neighbors < 2 || neighbors > 3) {
-            return (this.map[a][b] == 1) ? STATE.DEAD : STATE.ALIVE;
+            return (this.map[a][b] == 1) ?
+                    STATE.DEAD :
+                    STATE.ALIVE;
         } else return STATE.DEAD;
     }
 
@@ -127,7 +131,9 @@ public class Life extends Model implements View {
             }
         }
         if (neighbors < 2 || neighbors > 3) {
-            return (this.map[a][b] == 1) ? STATE.DEAD : STATE.ALIVE;
+            return (this.map[a][b] == 1) ?
+                    STATE.DEAD :
+                    STATE.ALIVE;
         } else return STATE.DEAD;
     }
 
