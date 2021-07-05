@@ -7,11 +7,11 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int size = scanner.nextInt();
         int seed = scanner.nextInt();
-        int gen = scanner.nextInt();
+        int gens = scanner.nextInt();
         Life world = new Life(size, seed);
 
         world.view();
-        world.propagate();
+        world.propagate(gens);
         world.view();
     }
 }

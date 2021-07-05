@@ -6,11 +6,10 @@ public class test {
         Scanner scanner = new Scanner(System.in);
         int size = scanner.nextInt();
         int seed = scanner.nextInt();
-        int gen = scanner.nextInt();
+        int gens = scanner.nextInt();
         Life world = new Life(size, seed);
 
         world.view();
-        world.propagate();
-        world.view();
+        world.propagate(gens);
     }
 }

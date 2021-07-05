@@ -11,5 +11,5 @@ public abstract class Model {
         this.gen = 0;
     }
 
-    public void propagate() {}
+    public void propagate(int gen) {}
 }
