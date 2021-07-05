@@ -20,13 +20,35 @@ public class Life extends Model implements View {
     }
 
     LOCALE check_location(int a, int b) {
-        return ((a > 0 && a < this.size) && (b > 0 && b < this.size)) ? LOCALE.CENTER : LOCALE.BORDER;
+        return ((a > 0 && a < this.size) && (b > 0 && b < this.size)) ?
+                LOCALE.CENTER :
+                LOCALE.BORDER;
     }
 
-    STATE liveOrDieInCenter(int a, int b) {
+    STATE atBorder(int a, int b) {
+        int neighbors = 0;
+        // I need some sort of sentinels to track the bound of the neighbors
+        int r = a - 1; // row sentinel
+        int c = b - 1; // column sentinel
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                if (r == a && c == b) continue;
+                if (this.map[r][c] == 1) ++neighbors;
+                if (neighbors > 3) break;
+                ++c;
+                if (c == this.size - 1) c = 0;
+            }
+            ++r;
+            if (r == this.size - 1) r = 0;
+        }
+        return (neighbors < 2 || neighbors > 3) ? STATE.DEAD : STATE.ALIVE;
+    }
+
+    STATE atCenter(int a, int b) {
         int neighbors = 0;
         for (int i = a - 1; i <= (a + 1); ++i) {
             for (int j = b - 1; j <= (b + 1); ++j) {
+                if (i == a && j == b) continue;
                 if (this.map[i][j] == 1) ++neighbors;
                 if (neighbors > 3) break;
             }
