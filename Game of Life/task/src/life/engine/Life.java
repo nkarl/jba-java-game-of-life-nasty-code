@@ -22,7 +22,7 @@ public class Life extends Model implements View {
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
                 if (random.nextBoolean()) this.map[i][j] = 1;
-                else this.map[i][j] = 0;
+                else                      this.map[i][j] = 0;
             }
         }
     }
@@ -32,8 +32,7 @@ public class Life extends Model implements View {
      */
     public void propagate(int gens) {
         if (gens > 0)
-            for (int i = 1; i <= gens; ++i)
-                generate();
+            for (int i = 1; i <= gens; ++i) generate();
         view();
     }
 
