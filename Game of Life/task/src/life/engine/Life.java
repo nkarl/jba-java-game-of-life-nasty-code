@@ -42,11 +42,10 @@ public class Life extends Model implements View {
      * Determine the state of life/death for the current generation of cells.
      */
     void generate() {
-        STATE cell;
         for (int i = 0; i < this.size - 1; ++i) {
             for (int j = 0; j < this.size - 1; ++j) {
-                cell = liveOrDie(i, j);
-                this.map[i][j] = (cell == STATE.ALIVE) ? 1 : 0;
+                this.map[i][j] = (liveOrDie(i, j) == STATE.ALIVE) ?
+                        1 : 0;
             }
         }
     }
@@ -59,8 +58,7 @@ public class Life extends Model implements View {
      */
     STATE liveOrDie(int a, int b) {
         return (locate(a, b) == LOCALE.CENTER) ?
-                atCenter(a, b) :
-                atBorder(a, b);
+                atCenter(a, b) : atBorder(a, b);
     }
 
 
@@ -73,8 +71,7 @@ public class Life extends Model implements View {
      */
     LOCALE locate(int a, int b) {
         return ((a > 0 && a < this.size) && (b > 0 && b < this.size)) ?
-                LOCALE.CENTER :
-                LOCALE.BORDER;
+                LOCALE.CENTER : LOCALE.BORDER;
     }
 
 
@@ -96,8 +93,7 @@ public class Life extends Model implements View {
         }
         if (neighbors < 2 || neighbors > 3) {
             return (this.map[a][b] == 1) ?
-                    STATE.DEAD :
-                    STATE.ALIVE;
+                    STATE.DEAD : STATE.ALIVE;
         } else return STATE.DEAD;
     }
 
@@ -130,8 +126,7 @@ public class Life extends Model implements View {
         }
         if (neighbors < 2 || neighbors > 3) {
             return (this.map[a][b] == 1) ?
-                    STATE.DEAD :
-                    STATE.ALIVE;
+                    STATE.DEAD : STATE.ALIVE;
         } else return STATE.DEAD;
     }
 
