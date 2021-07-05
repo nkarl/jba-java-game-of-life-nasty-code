@@ -11,5 +11,7 @@ public class Main {
         Life world = new Life(size, seed);
 
         world.view();
+        world.propagate();
+        world.view();
     }
 }

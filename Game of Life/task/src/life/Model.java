@@ -11,6 +11,5 @@ public abstract class Model {
         this.gen = 0;
     }
 
-    void resolve_gen(int i, int j) {}
-    void propagate() {}
+    public void propagate() {}
 }

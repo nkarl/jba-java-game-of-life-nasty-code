@@ -31,15 +31,17 @@ public class Life extends Model implements View {
         int r = a - 1; // row sentinel
         int c = b - 1; // column sentinel
         for (int i = 0; i < 3; ++i) {
+            if (r == 0) r = this.size - 1;  // wrap around
             for (int j = 0; j < 3; ++j) {
+                if (c == 0) c = this.size - 1; // wrap around
                 if (r == a && c == b) continue;
                 if (this.map[r][c] == 1) ++neighbors;
                 if (neighbors > 3) break;
                 ++c;
-                if (c == this.size - 1) c = 0;
+                if (c == this.size - 1) c = 0; // wrap around
             }
             ++r;
-            if (r == this.size - 1) r = 0;
+            if (r == this.size - 1) r = 0; // wrap around
         }
         return (neighbors < 2 || neighbors > 3) ? STATE.DEAD : STATE.ALIVE;
     }
@@ -56,24 +58,26 @@ public class Life extends Model implements View {
         return (neighbors < 2 || neighbors > 3) ? STATE.DEAD : STATE.ALIVE;
     }
 
-    void liveOrDie(int i, int j) {
+    STATE liveOrDie(int i, int j) {
         LOCALE location;
         STATE life = STATE.ALIVE;
         location = check_location(i, j);
 
         switch (location) {
             case CENTER:
-                return= atCenter(i, j);
+                life = atCenter(i, j);
+                break;
             case BORDER:
                 life = atBorder(i, j);
-                break;
         }
+        return life;
     }
 
-    void this_generation() {
+    @Override
+    public void propagate() {
         for (int i = 0; i < this.size; ++i) {
             for (int j = 0; j < this.size; ++j) {
-                resolve_gen(i, j);
+                liveOrDie(i, j);
             }
         }
     }
