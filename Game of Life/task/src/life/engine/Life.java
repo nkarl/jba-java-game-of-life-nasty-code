@@ -13,6 +13,7 @@ public class Life extends Model implements View {
 
     /**
      * The Life Constructor.
+     *
      * @param size size of this map.
      * @param seed the seeded value for the randomizing algorithm.
      */
@@ -22,7 +23,7 @@ public class Life extends Model implements View {
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
                 if (random.nextBoolean()) this.map[i][j] = 1;
-                else                      this.map[i][j] = 0;
+                else this.map[i][j] = 0;
             }
         }
     }
@@ -34,31 +35,6 @@ public class Life extends Model implements View {
         if (gens > 0)
             for (int i = 1; i <= gens; ++i) generate();
         view();
-    }
-
-
-    /**
-     * @param a the x coordinate
-     * @param b the y coordinate
-     * @return the state of the cell
-     */
-    STATE liveOrDie(int a, int b) {
-        return (locate(a, b) == LOCALE.CENTER) ?
-                atCenter(a, b) :
-                atBorder(a, b);
-    }
-
-
-    /**
-     * Check the location of the cell, who lives either at CENTER or BORDER.
-     * @param a x coordinate
-     * @param b y coordinate
-     * @return the locale of the cell
-     */
-    LOCALE locate(int a, int b) {
-        return ((a > 0 && a < this.size) && (b > 0 && b < this.size)) ?
-                LOCALE.CENTER :
-                LOCALE.BORDER;
     }
 
 
@@ -77,7 +53,34 @@ public class Life extends Model implements View {
 
 
     /**
+     * @param a the x coordinate
+     * @param b the y coordinate
+     * @return the state of the cell
+     */
+    STATE liveOrDie(int a, int b) {
+        return (locate(a, b) == LOCALE.CENTER) ?
+                atCenter(a, b) :
+                atBorder(a, b);
+    }
+
+
+    /**
+     * Check the location of the cell, who lives either at CENTER or BORDER.
+     *
+     * @param a x coordinate
+     * @param b y coordinate
+     * @return the locale of the cell
+     */
+    LOCALE locate(int a, int b) {
+        return ((a > 0 && a < this.size) && (b > 0 && b < this.size)) ?
+                LOCALE.CENTER :
+                LOCALE.BORDER;
+    }
+
+
+    /**
      * Determine a cell's life at the borders.
+     *
      * @param a x coordinate
      * @param b y coordinate
      * @return the state of the cell
@@ -111,6 +114,7 @@ public class Life extends Model implements View {
 
     /**
      * Determine a cell's life at the center.
+     *
      * @param a x coordinate
      * @param b y coordinate
      * @return the state of the cell
