@@ -27,16 +27,13 @@ public class Life extends Model implements View {
         }
     }
 
-
     /**
      * @param gens the total number of generations to propagate through.
      */
     public void propagate(int gens) {
-        if (gens > 0) {
-            for (int i = 1; i <= gens; ++i) {
+        if (gens > 0)
+            for (int i = 1; i <= gens; ++i)
                 generate();
-            }
-        }
         view();
     }
 
