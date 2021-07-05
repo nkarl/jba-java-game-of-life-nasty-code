@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import life.Life;
+import life.engine.Life;
 
 public class test {
     public static void main(String[] args) {

@@ -1,5 +1,7 @@
 package life;
 
+import life.engine.Life;
+
 import java.util.Scanner;
 
 public class Main {
@@ -12,6 +14,5 @@ public class Main {
 
         world.view();
         world.propagate(gens);
-        world.view();
     }
 }
