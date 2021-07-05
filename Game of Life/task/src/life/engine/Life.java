@@ -15,7 +15,7 @@ public class Life extends Model implements View {
      * The Life Constructor.
      *
      * @param size size of this map.
-     * @param seed the seeded value for the randomizing algorithm.
+     * @param seed the seeded value for randomization.
      */
     public Life(int size, long seed) {
         super(size);
@@ -63,7 +63,7 @@ public class Life extends Model implements View {
 
 
     /**
-     * Check the location of the cell, who lives either at CENTER or BORDER.
+     * Check the locale of cell, who lives either at CENTER or BORDER.
      *
      * @param a x coordinate
      * @param b y coordinate
@@ -76,7 +76,7 @@ public class Life extends Model implements View {
 
 
     /**
-     * Determine a cell's life at the center.
+     * Determine a cell's life at center.
      *
      * @param a x coordinate
      * @param b y coordinate
@@ -99,7 +99,7 @@ public class Life extends Model implements View {
 
 
     /**
-     * Determine a cell's life at the borders.
+     * Determine a cell's life at borders.
      *
      * @param a x coordinate
      * @param b y coordinate
