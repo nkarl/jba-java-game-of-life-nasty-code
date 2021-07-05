@@ -7,17 +7,13 @@ public class Life extends Model implements View {
 
     enum STATE {ALIVE, DEAD}
 
-//    int MIN, MAX;
-
     /**
-     * Constructor.
+     * The Life Constructor.
      * @param size size of this map.
      * @param seed the seeded value for the randomizing algorithm.
      */
     public Life(int size, long seed) {
         super(size);
-//        this.MIN = 0;
-//        this.MAX = size - 1;
         Random random = new Random(seed);
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
@@ -32,6 +28,7 @@ public class Life extends Model implements View {
      * @param gens the total number of generations to propagate through.
      */
     public void propagate(int gens) {
+        System.out.println("---------------------------------------");
         if (gens > 0) {
             for (int i = 1; i <= gens; ++i) {
                 generate();
@@ -50,8 +47,7 @@ public class Life extends Model implements View {
         LOCALE location;
         location = check_location(a, b);
         return (location == LOCALE.CENTER) ?
-                atCenter(a, b) :
-                atBorder(a, b);
+                atCenter(a, b) : atBorder(a, b);
     }
 
 
@@ -63,8 +59,7 @@ public class Life extends Model implements View {
      */
     LOCALE check_location(int a, int b) {
         return ((a > 0 && a < this.size) && (b > 0 && b < this.size)) ?
-                LOCALE.CENTER :
-                LOCALE.BORDER;
+                LOCALE.CENTER : LOCALE.BORDER;
     }
 
 
@@ -140,7 +135,7 @@ public class Life extends Model implements View {
                 if (cell == 1) System.out.print('O');
                 else System.out.print(' ');
             }
-            System.out.print('\n');
+            System.out.println();
         }
     }
 }

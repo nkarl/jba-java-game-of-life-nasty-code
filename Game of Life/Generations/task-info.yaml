@@ -254,23 +254,33 @@ files:
 - name: src/test.javaBAK
   visible: true
   learner_created: true
+- name: src/life/engine/View.class
+  visible: true
+  learner_created: true
+- name: src/life/engine/Life.class
+  visible: true
+  learner_created: true
+- name: src/life/engine/Model.class
+  visible: true
+  learner_created: true
+- name: src/life/engine/Life$LOCALE.class
+  visible: true
+  learner_created: true
+- name: src/life/engine/Life$STATE.class
+  visible: true
+  learner_created: true
+- name: src/test.class
+  visible: true
+  learner_created: true
+- name: src/test.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/54/stages/295/implement#comment
 status: Failed
 feedback:
   message: "Wrong answer in test #2\n\nYour output is wrong!\n\nPlease find below\
     \ the output of your program during this failed test.\nNote that the &#39;&gt;&#39;\
     \ character indicates the beginning of the input line.\n\n---\n\n&gt; 8 1 10\n\
-    O      O\nOO  O OO\nOOO  O  \n  OO OOO\nO  O O O\nO O  OO \nOO    OO\nOO  O  \
-    \ \n  OOO OO\n    O  O\nOOO  O  \n   O O O\nOO O O O\n  OO O  \nO O O OO\nOO \
-    \ O   \n OOOOOOO\n       O\nOOOO  O \n   O O O\nOO O O O\n   O O  \nO O O OO\n\
-    OO  O   \n OOOOOOO\n       O\nOOOOOO  \n     O O\nO OO O O\n     O  \nO  OO OO\n\
-    OO  O   \n OOOOOOO\n       O\nOOOOOO  \n     O O\nOOO OO O\n  O     \nO O  OOO\n\
-    OO  O   \n OOOOOOO\n       O\nOOOOOO  \n       O\nOOOOO OO\n    O   \nO  O OOO\n\
-    OO  O   \n OOOOOOO\n       O\nOOOOO O \n       O\nOOOOOOOO\n        \nOOOOOOOO\n\
-    OO  O   \n OOOOOOO\n       O\nOOOO  O \n       O\nOOOOOOOO\n        \nO OOOOOO\n\
-    OO  O   \n OOOOOOO\n       O\nOOO   O \n    O  O\nOOOOOOOO\n        \nO OOOOOO\n\
-    OO  O   \n OOOOOOO\n    O  O\nOO OO O \n       O\nOOOOOOOO\n        \nO OOOOOO\n\
-    OO  O   \n OOOOOOO\n       O\nO     O \n  O O  O\nOOO OOOO\n        \nO OOOOOO\n\
-    OO  O"
-  time: Mon, 05 Jul 2021 12:05:34 UTC
+    \ OOOOOOO\n       O\nOOOOOO  \n     O O\nOOOO O O\n   O O  \nOO O OOO\nOO  O"
+  time: Mon, 05 Jul 2021 13:05:07 UTC
 record: -1
