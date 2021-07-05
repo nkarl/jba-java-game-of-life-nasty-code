@@ -17,10 +17,8 @@ public class Life extends Model implements View {
         super(size);
         Random random = new Random(seed);
         for (int i = 0; i < size; ++i) {
-            for (int j = 0; j < size; ++j) {
-                if (random.nextBoolean()) this.map[i][j] = 1;
-                else this.map[i][j] = 0;
-            }
+            for (int j = 0; j < size; ++j)
+                this.map[i][j] = (random.nextBoolean()) ? 1 : 0;
         }
     }
 
@@ -29,7 +27,7 @@ public class Life extends Model implements View {
      */
     public void propagate(int gens) {
         if (gens > 0)
-            for (int i = 1; i <= gens; ++i) generate();
+            for (int i = 1; i < gens; ++i) generate();
         view();
     }
 
