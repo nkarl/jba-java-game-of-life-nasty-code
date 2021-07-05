@@ -1,6 +1,9 @@
 package life.engine;
 
 public abstract class Model {
+    enum LOCALE {CENTER, BORDER}
+
+    enum STATE {ALIVE, DEAD}
 
     int size;
     protected int[][] map;
@@ -12,4 +15,8 @@ public abstract class Model {
 
     public void propagate(int gens) {}
     void generate() {}
+    void live() {}
+    void locate() {}
+    void atCenter() {}
+    void atBorder() {}
 }
