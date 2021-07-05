@@ -130,8 +130,8 @@ public class Life extends Model implements View {
      */
     @Override
     public void view() {
-        System.out.println("This generation:");
-        System.out.println("--------------------------------------------------------------");
+//        System.out.println("This generation:");
+//        System.out.println("--------------------------------------------------------------");
         for (var row : this.map) {
             for (int cell : row) {
                 if (cell == 1) System.out.print('O');
@@ -139,6 +139,6 @@ public class Life extends Model implements View {
             }
             System.out.print('\n');
         }
-        System.out.println();
+//        System.out.println();
     }
 }
