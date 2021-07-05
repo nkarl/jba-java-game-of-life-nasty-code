@@ -8,7 +8,6 @@ public class Life extends Model implements View {
     enum STATE {ALIVE, DEAD}
 
     int MIN, MAX;
-    int gen;
 
     /**
      * Constructor.
@@ -18,7 +17,7 @@ public class Life extends Model implements View {
     public Life(int size, long seed) {
         super(size);
         this.MIN = 0;
-        this.MAX = this.size - 1;
+        this.MAX = size - 1;
         Random random = new Random(seed);
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
@@ -71,7 +70,7 @@ public class Life extends Model implements View {
 
 
     /**
-     * Determine the state of life/death for the current generation's cells.
+     * Determine the state of life/death for the current generation of cells.
      */
     void generate() {
         STATE cell;
@@ -124,7 +123,7 @@ public class Life extends Model implements View {
                 if (neighbors > 3) break;
             }
         }
-        return (neighbors == 2 || neighbors == 3) ? STATE.ALIVE : STATE.DEAD;
+        return (neighbors < 2 || neighbors > 3) ? STATE.DEAD : STATE.ALIVE;
     }
 
 
@@ -133,8 +132,6 @@ public class Life extends Model implements View {
      */
     @Override
     public void view() {
-//        System.out.println("This generation:");
-//        System.out.println("--------------------------------------------------------------");
         for (var row : this.map) {
             for (int cell : row) {
                 if (cell == 1) System.out.print('O');
@@ -142,6 +139,5 @@ public class Life extends Model implements View {
             }
             System.out.print('\n');
         }
-//        System.out.println();
     }
 }
