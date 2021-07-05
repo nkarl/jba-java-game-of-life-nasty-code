@@ -11,5 +11,7 @@ public class test {
 
         world.view();
         world.propagate(gens);
+
+        scanner.close();
     }
 }
