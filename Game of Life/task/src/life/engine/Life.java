@@ -28,7 +28,6 @@ public class Life extends Model implements View {
      * @param gens the total number of generations to propagate through.
      */
     public void propagate(int gens) {
-        System.out.println("---------------------------------------");
         if (gens > 0) {
             for (int i = 1; i <= gens; ++i) {
                 generate();
@@ -102,7 +101,9 @@ public class Life extends Model implements View {
             ++r;
             if (r > MAX) r = MIN; // wrap around
         }
-        return (neighbors < 2 || neighbors > 3) ? STATE.DEAD : STATE.ALIVE;
+        if (neighbors < 2 || neighbors > 3) {
+            return (this.map[a][b] == 1) ? STATE.DEAD : STATE.ALIVE;
+        } else return STATE.DEAD;
     }
 
 
@@ -121,7 +122,9 @@ public class Life extends Model implements View {
                 if (neighbors > 3) break;
             }
         }
-        return (neighbors < 2 || neighbors > 3) ? STATE.DEAD : STATE.ALIVE;
+        if (neighbors < 2 || neighbors > 3) {
+            return (this.map[a][b] == 1) ? STATE.DEAD : STATE.ALIVE;
+        } else return STATE.DEAD;
     }
 
 

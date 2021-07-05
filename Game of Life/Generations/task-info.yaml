@@ -251,9 +251,6 @@ files:
         public void view();
     }
   learner_created: true
-- name: src/test.javaBAK
-  visible: true
-  learner_created: true
 - name: src/life/engine/View.class
   visible: true
   learner_created: true
@@ -269,10 +266,7 @@ files:
 - name: src/life/engine/Life$STATE.class
   visible: true
   learner_created: true
-- name: src/test.class
-  visible: true
-  learner_created: true
-- name: src/test.java
+- name: src/mytest.javaBAK
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/projects/54/stages/295/implement#comment
@@ -281,6 +275,6 @@ feedback:
   message: "Wrong answer in test #2\n\nYour output is wrong!\n\nPlease find below\
     \ the output of your program during this failed test.\nNote that the &#39;&gt;&#39;\
     \ character indicates the beginning of the input line.\n\n---\n\n&gt; 8 1 10\n\
-    \ OOOOOOO\n       O\nOOOOOO  \n     O O\nOOOO O O\n   O O  \nOO O OOO\nOO  O"
-  time: Mon, 05 Jul 2021 13:05:07 UTC
+    \ O    OO\n O    OO\n      O \n       O\n   O   O\nOO  O   \nOO    OO\nOO  O"
+  time: Mon, 05 Jul 2021 17:53:06 UTC
 record: -1
