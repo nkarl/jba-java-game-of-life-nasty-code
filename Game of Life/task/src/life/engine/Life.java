@@ -15,7 +15,7 @@ public class Life extends Model implements View {
      * @param size size of this map.
      * @param seed the seeded value for the randomizing algorithm.
      */
-    public Life(int size, int seed) {
+    public Life(int size, long seed) {
         super(size);
         this.MIN = 0;
         this.MAX = this.size - 1;
@@ -33,10 +33,13 @@ public class Life extends Model implements View {
      * @param gens the total number of generations to propagate through.
      */
     public void propagate(int gens) {
-        for (int i = this.gen; i < gens; ++i) {
-            generate();
-            view();
+//        for (int i = this.gen; i < gens; ++i) {
+        if (gens > 0) {
+            for (int i = 1; i <= gens; ++i) {
+                generate();
+            }
         }
+        view();
     }
 
 
@@ -121,7 +124,7 @@ public class Life extends Model implements View {
                 if (neighbors > 3) break;
             }
         }
-        return (neighbors < 2 || neighbors > 3) ? STATE.DEAD : STATE.ALIVE;
+        return (neighbors == 2 || neighbors == 3) ? STATE.ALIVE : STATE.DEAD;
     }
 
 
