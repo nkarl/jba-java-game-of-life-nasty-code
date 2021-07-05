@@ -44,9 +44,7 @@ public class Life extends Model implements View {
      * @return the state of the cell
      */
     STATE liveOrDie(int a, int b) {
-        LOCALE location;
-        location = locate(a, b);
-        return (location == LOCALE.CENTER) ?
+        return (locate(a, b) == LOCALE.CENTER) ?
                 atCenter(a, b) :
                 atBorder(a, b);
     }
