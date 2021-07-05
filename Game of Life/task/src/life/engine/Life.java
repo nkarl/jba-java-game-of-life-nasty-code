@@ -79,6 +79,30 @@ public class Life extends Model implements View {
 
 
     /**
+     * Determine a cell's life at the center.
+     *
+     * @param a x coordinate
+     * @param b y coordinate
+     * @return the state of the cell
+     */
+    STATE atCenter(int a, int b) {
+        int neighbors = 0;
+        for (int i = a - 1; i <= (a + 1); ++i) {
+            for (int j = b - 1; j <= (b + 1); ++j) {
+                if (i == a && j == b) continue;
+                if (this.map[i][j] == 1) ++neighbors;
+                if (neighbors > 3) break;
+            }
+        }
+        if (neighbors < 2 || neighbors > 3) {
+            return (this.map[a][b] == 1) ?
+                    STATE.DEAD :
+                    STATE.ALIVE;
+        } else return STATE.DEAD;
+    }
+
+
+    /**
      * Determine a cell's life at the borders.
      *
      * @param a x coordinate
@@ -103,30 +127,6 @@ public class Life extends Model implements View {
             }
             ++r;
             if (r > MAX) r = MIN; // wrap around
-        }
-        if (neighbors < 2 || neighbors > 3) {
-            return (this.map[a][b] == 1) ?
-                    STATE.DEAD :
-                    STATE.ALIVE;
-        } else return STATE.DEAD;
-    }
-
-
-    /**
-     * Determine a cell's life at the center.
-     *
-     * @param a x coordinate
-     * @param b y coordinate
-     * @return the state of the cell
-     */
-    STATE atCenter(int a, int b) {
-        int neighbors = 0;
-        for (int i = a - 1; i <= (a + 1); ++i) {
-            for (int j = b - 1; j <= (b + 1); ++j) {
-                if (i == a && j == b) continue;
-                if (this.map[i][j] == 1) ++neighbors;
-                if (neighbors > 3) break;
-            }
         }
         if (neighbors < 2 || neighbors > 3) {
             return (this.map[a][b] == 1) ?
