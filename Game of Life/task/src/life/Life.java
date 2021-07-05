@@ -56,16 +56,19 @@ public class Life extends Model implements View {
         return (neighbors < 2 || neighbors > 3) ? STATE.DEAD : STATE.ALIVE;
     }
 
-//    void liveOrDie(int i, int j) {
-//        LOCALE location;
-//        location = check_location(i, j);
-//        switch (location) {
-//            case CENTER:
-//                break;
-//            case BORDER:
-//                break;
-//        }
-//    }
+    void liveOrDie(int i, int j) {
+        LOCALE location;
+        STATE life = STATE.ALIVE;
+        location = check_location(i, j);
+
+        switch (location) {
+            case CENTER:
+                return= atCenter(i, j);
+            case BORDER:
+                life = atBorder(i, j);
+                break;
+        }
+    }
 
     void this_generation() {
         for (int i = 0; i < this.size; ++i) {
