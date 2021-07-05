@@ -254,6 +254,27 @@ files:
         }
     }
   learner_created: true
+- name: src/life/View.class
+  visible: true
+  learner_created: true
+- name: src/life/Life.class
+  visible: true
+  learner_created: true
+- name: src/life/Model.class
+  visible: true
+  learner_created: true
+- name: src/life/Life$LOCALE.class
+  visible: true
+  learner_created: true
+- name: src/life/Life$1.class
+  visible: true
+  learner_created: true
+- name: src/life/Life$STATE.class
+  visible: true
+  learner_created: true
+- name: src/test.class
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/54/stages/295/implement#comment
 status: Unchecked
 record: -1
