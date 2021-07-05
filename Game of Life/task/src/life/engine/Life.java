@@ -3,7 +3,7 @@ package life.engine;
 import java.util.Random;
 
 /*
-    Reference Gist from HeyMilkshake, moderator in the JetBrains Academy's Discord
+    Reference Gist from HeyMilkshake, moderator @JetBrains Academy's Discord
     https://gist.github.com/msmilkshake/f887e0fed34521117c44be29a4471fdc
  */
 public class Life extends Model implements View {
