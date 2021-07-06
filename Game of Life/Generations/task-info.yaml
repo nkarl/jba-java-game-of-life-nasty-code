@@ -254,21 +254,6 @@ files:
 - name: src/test.javaBAK
   visible: true
   learner_created: true
-- name: src/life/engine/View.class
-  visible: true
-  learner_created: true
-- name: src/life/engine/Model$STATE.class
-  visible: true
-  learner_created: true
-- name: src/life/engine/Life.class
-  visible: true
-  learner_created: true
-- name: src/life/engine/Model$LOCALE.class
-  visible: true
-  learner_created: true
-- name: src/life/engine/Model.class
-  visible: true
-  learner_created: true
 - name: src/mytest.py
   visible: true
   learner_created: true
@@ -282,5 +267,5 @@ feedback:
     \ the output of your program during this failed test.\nNote that the &#39;&gt;&#39;\
     \ character indicates the beginning of the input line.\n\n---\n\n&gt; 8 1 10\n\
     \ OO O OO\n    O  O\nOOOO O  \n     O O\nOO   O O\n O   O  \n O  O OO\nOO  O"
-  time: Tue, 06 Jul 2021 17:48:03 UTC
+  time: Tue, 06 Jul 2021 17:57:51 UTC
 record: -1

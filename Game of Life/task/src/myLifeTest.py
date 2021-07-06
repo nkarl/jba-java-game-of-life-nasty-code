@@ -20,7 +20,6 @@ class Life:
     def propagate(self, gens: int):
         print("GEN 0:")
         self.view()
-        # if (gens > 0):
         for i in range(0, gens):
             self.generate()
             print(f"GEN {i}:")
@@ -32,19 +31,14 @@ class Life:
         for i in range(0, self.size):
             for j in range(0, self.size):
                 # self.view_local(i, j)
-                self.map[i][j] = self.live(i, j)
+                self.map[i][j] = 1 if self.live(i, j) is True else 0
             # self.view()
         # self.view()
 
 
     def live(self, row: int, col: int):
-        state: int 
         count = self.checkSurround(row, col)
-        if count == 2 or count == 3:
-            state = 1
-        else:
-            state = 0
-        return state
+        return count == 2 or count == 3
     
     def checkSurround(self, row: int, col: int):
         k = 0
@@ -56,21 +50,20 @@ class Life:
                     continue
                 cell = self.map[r][c]
                 k += 1 if cell == 1 else 0
-                    # k -= 1
         return k
 
-    def __alive(self, row: int, col: int):
-        neighbors = 0
-        for i in range(-1, 2):
-            r = self.__wrap(row + i)
-            for j in range(-1, 2):
-                c = self.__wrap(col + j)
-                if r == row and c == col:
-                    continue
-                neighbors += 1 if self.map[i][j] == 1 else 0
-                if neighbors > 3:
-                    break
-        return 1 if neighbors == 2 or neighbors == 3 else 0
+    # def __alive(self, row: int, col: int):
+        # neighbors = 0
+        # for i in range(-1, 2):
+            # r = self.__wrap(row + i)
+            # for j in range(-1, 2):
+                # c = self.__wrap(col + j)
+                # if r == row and c == col:
+                    # continue
+                # neighbors += 1 if self.map[i][j] == 1 else 0
+                # if neighbors > 3:
+                    # break
+        # return 1 if neighbors == 2 or neighbors == 3 else 0
 
 
     def checkNeighbors(self, row: int, col: int):
@@ -110,9 +103,6 @@ class Life:
 
 
     def view(self):
-        # print("\n\t----------------------------------------------------")
-        # print("\tThe Universe Map:")
-        # print("\t----------------------------------------------------\n")
         view = "\t\t  | "
         for i in range(0, len(self.map)):
             i = i % 10
