@@ -50,7 +50,7 @@ public class Life extends Model implements View {
     }
 
     int loopCoordinate(int coordinate) {
-        return (coordinate + this.size) % this.size;
+        return (coordinate) % this.size;
     }
 
 
