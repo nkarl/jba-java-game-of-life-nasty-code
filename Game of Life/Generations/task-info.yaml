@@ -254,6 +254,27 @@ files:
 - name: src/test.javaBAK
   visible: true
   learner_created: true
+- name: src/test.class
+  visible: true
+  learner_created: true
+- name: src/test.java
+  visible: true
+  learner_created: true
+- name: src/life/engine/View.class
+  visible: true
+  learner_created: true
+- name: src/life/engine/Model$STATE.class
+  visible: true
+  learner_created: true
+- name: src/life/engine/Life.class
+  visible: true
+  learner_created: true
+- name: src/life/engine/Model$LOCALE.class
+  visible: true
+  learner_created: true
+- name: src/life/engine/Model.class
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/54/stages/295/implement#comment
 status: Failed
 feedback:
