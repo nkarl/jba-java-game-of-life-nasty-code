@@ -7,6 +7,7 @@ import java.util.Random;
     https://gist.github.com/msmilkshake/f887e0fed34521117c44be29a4471fdc
  */
 public class Life extends Model implements View {
+
     public Life(int size, long seed) {
         super(size);
         Random random = new Random(seed);
@@ -16,12 +17,14 @@ public class Life extends Model implements View {
         }
     }
 
+    @Override
     public void propagate(int gens) {
         for (int i = 0; i < gens; ++i) {
             generate();
         }
     }
 
+    @Override
     void generate() {
         for (int i = 0; i < this.size - 1; ++i) {
             for (int j = 0; j < this.size - 1; ++j)
@@ -39,9 +42,9 @@ public class Life extends Model implements View {
         int r, c;
 
         for (int i = -1; i < 2; ++i) {
-            r = loopCoordinate(i + row);
+            r = wrapBorder(i + row);
             for (int j = -1; j < 2; ++j) {
-                c = loopCoordinate(j + col);
+                c = wrapBorder(j + col);
                 if (r == row && c == col) continue;
                 count += (this.map[r][c] == 1) ? 1 : 0;
             }
@@ -49,7 +52,7 @@ public class Life extends Model implements View {
         return count;
     }
 
-    int loopCoordinate(int coordinate) {
+    int wrapBorder(int coordinate) {
         return (coordinate) % this.size;
     }
 
