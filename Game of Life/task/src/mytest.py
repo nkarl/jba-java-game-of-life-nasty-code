@@ -14,7 +14,7 @@ class Life:
 
     def propagate(self, gens: int):
         if (gens > 0):
-            for i in range(0, gens):
+            for i in range(1, gens):
                 self.generate()
                 self.view()
 
@@ -22,15 +22,15 @@ class Life:
     def generate(self):
         for i in range(0, self.size):
             for j in range(0, self.size):
-                self.map[i][j] = 1 if self.alive(i, j) else 0
+                self.map[i][j] = 1 if self.__alive(i, j) else 0
 
 
-    def alive(self, row: int, col: int):
+    def __alive(self, row: int, col: int):
         neighbors = 0
         for i in range(-1, 2):
-            r = self.wrap(i)
+            r = self.__wrap(i)
             for j in range(-1, 2):
-                c = self.wrap(j)
+                c = self.__wrap(j)
                 if r == row and c == col:
                     continue
                 neighbors += 1 if self.map[i][j] == 1 else 0
@@ -39,7 +39,7 @@ class Life:
         return 1 if neighbors == 2 or neighbors == 3 else 0
 
 
-    def wrap(self, c: int):
+    def __wrap(self, c: int):
         return (c + self.size) % self.size
 
 
