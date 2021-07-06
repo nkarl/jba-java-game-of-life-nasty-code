@@ -19,29 +19,58 @@ class Life:
 
     def propagate(self, gens: int):
         if (gens > 0):
-            for i in range(1, gens):
+            for i in range(0, gens):
                 self.generate()
                 self.view()
 
 
     def generate(self):
+        self.view()
         for i in range(0, self.size):
             for j in range(0, self.size):
-                self.map[i][j] = 1 if self.__alive(i, j) else 0
+                self.map[i][j] = self.live(i, j)
+                self.view_local(i, j)
+    # def generate(self):
+        # for i in range(0, self.size):
+            # for j in range(0, self.size):
+                # self.map[i][j] = 1 if self.__alive(i, j) else 0
 
 
     def __alive(self, row: int, col: int):
         neighbors = 0
         for i in range(-1, 2):
-            r = self.__wrap(i)
+            r = self.__wrap(row + i)
             for j in range(-1, 2):
-                c = self.__wrap(j)
+                c = self.__wrap(col + j)
                 if r == row and c == col:
                     continue
                 neighbors += 1 if self.map[i][j] == 1 else 0
                 if neighbors > 3:
                     break
         return 1 if neighbors == 2 or neighbors == 3 else 0
+
+    def live(self, row: int, col: int):
+        state: int 
+        count = self.checkSurround(row, col)
+        if count == 2 or count == 3:
+            state = 1
+        else:
+            state = 0
+        return state
+    
+    def checkSurround(self, row: int, col: int):
+        k = 0
+        for i in range(-1, 2):
+            r = self.__wrap(row + i)
+            for j in range(-1, 2):
+                c = self.__wrap(col + j)
+                if r == row and c == col:
+                    continue
+                cell = self.map[r][c]
+                k += 1 if cell == 1 else 0
+                    # k -= 1
+        return k
+
 
     def checkNeighbors(self, row: int, col: int):
         k = 0
@@ -51,7 +80,8 @@ class Life:
             mm1 = []
             for j in range(-1, 2):
                 c = self.__wrap(col + j)
-                ch = 'O' if self.map[r][c] == 1 else '-'
+                cell = self.map[r][c]
+                ch = 'O' if cell == 1 else '-'
                 if r == row and c == col:
                     ch = '*'
                 mm1 += [ch]
@@ -69,7 +99,7 @@ class Life:
                 view += cell
                 view += ' '
             view += '\n\t'
-        self.view()
+        # self.view()
         print(f"\n\tThe neighborhood map of the cell @(col={c}, row={r}):\n")
         print(view)
 
@@ -79,11 +109,12 @@ class Life:
 
 
     def view(self):
-        print("\n\t----------------------------------------------------")
-        print("\tThe Universe Map:")
-        print("\t----------------------------------------------------\n")
+        # print("\n\t----------------------------------------------------")
+        # print("\tThe Universe Map:")
+        # print("\t----------------------------------------------------\n")
         view = "\t\t  | "
         for i in range(0, len(self.map)):
+            i = i % 10
             view += f"{i} "
         print(view)
         view = "\t\t----"
@@ -92,6 +123,7 @@ class Life:
         print(view)
         view = "\t\t"
         for i in range(len(self.map)):
+            i = i % 10
             view += f"{i} | "
             for j in range(len(self.map)):
                 view += 'O' if self.map[i][j] == 1 else '-'
@@ -99,20 +131,52 @@ class Life:
             view += '\n\t\t'
         print(view)
 
+    def view_local(self, r: int, c: int):
+        print("\t----------------------------------------------------")
+        print(f"\tRAW @ ({r}, {c}):")
+        print("\t----------------------------------------------------\n")
+        self.view()
+        pass
 
-    # def view(self):
-        # view = "\t"
-        # for row in self.map:
-            # view += "\t"
-            # for cell in row:
-                # view += 'O' if cell == 1 else '-'
-                # view += ' '
-            # view += '\n\t'
-        # print("\nThe Universe Map:\n")
-        # print(view)
+    def rawview(self):
+        view = "\t\t  | "
+        for i in range(0, len(self.map)):
+            i = i % 10
+            view += f"{i} "
+        print(view)
+        view = "\t\t----"
+        for i in range(0, len(self.map)):
+            view += "--"
+        print(view)
+        view = "\t\t"
+        for i in range(len(self.map)):
+            i = i % 10
+            view += f"{i} | "
+            for j in range(len(self.map)):
+                view += f'{self.map[i][j]}' # if self.map[i][j] == 1 else ' '
+                view += ' '
+            view += '\n\t\t'
+        print(view)
+
+    def rawview_local(self, r: int, c: int):
+        print("\t----------------------------------------------------")
+        print(f"\tRAW @ ({r}, {c}):")
+        print("\t----------------------------------------------------\n")
+        self.rawview()
 
 
 if __name__ == "__main__":
-    m = Life(3,4)
-    a = m.checkNeighbors(0,1)
-    a = m.viewNeighbors(a)
+    # m = Life(15,4)
+    # m = Life(10, 4)
+    # m.view()
+    # m.rawview()
+    # a = m.checkNeighbors(0,1)
+    # m.viewNeighbors(a)
+    # b = m.checkNeighbors(3,5)
+    # m.viewNeighbors(b)
+    # c = m.checkNeighbors(7,8)
+    # m.viewNeighbors(c)
+    m = Life(5, 5)
+    # m.rawview()
+    m.propagate(1)
+    # m.rawview()

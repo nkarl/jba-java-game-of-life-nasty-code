@@ -27,7 +27,7 @@ public class Life extends Model implements View {
      */
     public void propagate(int gens) {
         if (gens > 0)
-            for (int i = 1; i < gens; ++i) generate();
+            for (int i = 0; i < gens; ++i) generate();
         view();
     }
 
@@ -49,9 +49,9 @@ public class Life extends Model implements View {
         int r, c;
 
         for (int i = -1; i < 2; ++i) {
-            r = wrapBorder(i);
+            r = wrapBorder(i + row);
             for (int j = -1; j < 2; ++j) {
-                c = wrapBorder(j);
+                c = wrapBorder(j + col);
                 if (r == row && c == col) continue;
                 neighbors += (this.map[r][c] == 1) ? 1 : 0;
                 if (neighbors > 3) break;

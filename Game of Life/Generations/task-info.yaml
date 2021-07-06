@@ -278,6 +278,6 @@ feedback:
   message: "Wrong answer in test #2\n\nYour output is wrong!\n\nPlease find below\
     \ the output of your program during this failed test.\nNote that the &#39;&gt;&#39;\
     \ character indicates the beginning of the input line.\n\n---\n\n&gt; 8 1 10\n\
-    \       O\n       O\n        \n       O\n       O\n        \n       O\nOO  O"
-  time: Tue, 06 Jul 2021 06:04:59 UTC
+    \ OO O OO\n    O  O\nOOOO O  \n     O O\nOO   O O\n O   O  \n O  O OO\nOO  O"
+  time: Tue, 06 Jul 2021 16:31:04 UTC
 record: -1
