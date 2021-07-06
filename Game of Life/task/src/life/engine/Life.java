@@ -38,13 +38,13 @@ public class Life extends Model implements View {
     void generate() {
         for (int i = 0; i < this.size - 1; ++i) {
             for (int j = 0; j < this.size - 1; ++j)
-                this.map[i][j] = (live(i, j) == STATE.ALIVE) ?
+                this.map[i][j] = (alive(i, j) == STATE.ALIVE) ?
                         1 : 0;
         }
     }
 
 
-    STATE live(int row, int col) {
+    STATE alive(int row, int col) {
         int neighbors = 0;
         int r, c;
 
@@ -54,11 +54,11 @@ public class Life extends Model implements View {
                 c = wrapBorder(j);
                 if (r == row && c == col) continue;
                 neighbors += (this.map[r][c] == 1) ? 1 : 0;
-                if (neighbors == 3) break;
+                if (neighbors > 3) break;
             }
         }
         if (neighbors == 2 || neighbors == 3) {
-            return (this.map[row][col] == 1) ? STATE.DEAD : STATE.ALIVE;
+            return STATE.ALIVE;
         }
         else return STATE.DEAD;
     }

@@ -269,6 +269,9 @@ files:
 - name: src/life/engine/Model.class
   visible: true
   learner_created: true
+- name: src/mytest.py
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/54/stages/295/implement#comment
 status: Failed
 feedback:
@@ -276,5 +279,5 @@ feedback:
     \ the output of your program during this failed test.\nNote that the &#39;&gt;&#39;\
     \ character indicates the beginning of the input line.\n\n---\n\n&gt; 8 1 10\n\
     \       O\n       O\n        \n       O\n       O\n        \n       O\nOO  O"
-  time: Tue, 06 Jul 2021 05:46:57 UTC
+  time: Tue, 06 Jul 2021 06:04:59 UTC
 record: -1
