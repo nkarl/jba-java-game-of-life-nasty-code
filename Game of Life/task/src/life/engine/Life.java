@@ -44,35 +44,25 @@ public class Life extends Model implements View {
     }
 
 
-    /**
-     * Check the locale of cell, who lives either at CENTER or BORDER.
-     *
-     * @param a x coordinate
-     * @param b y coordinate
-     * @return the locale of the cell
-     */
-    LOCALE locate(int a, int b) {
-        return ((a > 0 && a < this.size) && (b > 0 && b < this.size)) ?
-                LOCALE.CENTER : LOCALE.BORDER;
-    }
+    STATE live(int row, int col) {
+        int neighbors = 0;
+        int r, c;
 
-
-    STATE live(int a, int b) {
-        int neighbors = 0, r, c;
         for (int i = -1; i < 3; ++i) {
             r = wrapBorder(i);
             for (int j = -1; j < 3; ++j) {
                 c = wrapBorder(j);
-                if (r == a && c == b) continue;
+                if (r == row && c == col) continue;
                 neighbors += (this.map[r][c] == 1) ? 1 : 0;
                 if (neighbors == 3) break;
             }
         }
         if (neighbors == 2 || neighbors == 3) {
-            return (this.map[a][b] == 1) ? STATE.DEAD : STATE.ALIVE;
+            return (this.map[row][col] == 1) ? STATE.DEAD : STATE.ALIVE;
         }
         else return STATE.DEAD;
     }
+
 
     int wrapBorder(int coordinate) {
         return (coordinate + this.size) % this.size;
