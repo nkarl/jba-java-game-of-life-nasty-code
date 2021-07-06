@@ -48,9 +48,9 @@ public class Life extends Model implements View {
         int neighbors = 0;
         int r, c;
 
-        for (int i = -1; i < 3; ++i) {
+        for (int i = -1; i < 2; ++i) {
             r = wrapBorder(i);
-            for (int j = -1; j < 3; ++j) {
+            for (int j = -1; j < 2; ++j) {
                 c = wrapBorder(j);
                 if (r == row && c == col) continue;
                 neighbors += (this.map[r][c] == 1) ? 1 : 0;

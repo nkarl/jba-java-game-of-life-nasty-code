@@ -254,12 +254,6 @@ files:
 - name: src/test.javaBAK
   visible: true
   learner_created: true
-- name: src/test.class
-  visible: true
-  learner_created: true
-- name: src/test.java
-  visible: true
-  learner_created: true
 - name: src/life/engine/View.class
   visible: true
   learner_created: true
@@ -282,5 +276,5 @@ feedback:
     \ the output of your program during this failed test.\nNote that the &#39;&gt;&#39;\
     \ character indicates the beginning of the input line.\n\n---\n\n&gt; 8 1 10\n\
     \       O\n       O\n        \n       O\n       O\n        \n       O\nOO  O"
-  time: Tue, 06 Jul 2021 05:31:07 UTC
+  time: Tue, 06 Jul 2021 05:46:57 UTC
 record: -1
