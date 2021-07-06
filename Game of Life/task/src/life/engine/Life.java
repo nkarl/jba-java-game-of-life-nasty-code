@@ -39,9 +39,9 @@ public class Life extends Model implements View {
         int r, c;
 
         for (int i = -1; i < 2; ++i) {
-            r = wrapBorder(i + row);
+            r = loopCoordinate(i + row);
             for (int j = -1; j < 2; ++j) {
-                c = wrapBorder(j + col);
+                c = loopCoordinate(j + col);
                 if (r == row && c == col) continue;
                 count += (this.map[r][c] == 1) ? 1 : 0;
             }
@@ -49,7 +49,7 @@ public class Life extends Model implements View {
         return count;
     }
 
-    int wrapBorder(int coordinate) {
+    int loopCoordinate(int coordinate) {
         return (coordinate + this.size) % this.size;
     }
 
