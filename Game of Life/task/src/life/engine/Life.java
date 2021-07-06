@@ -44,17 +44,6 @@ public class Life extends Model implements View {
     }
 
 
-//    /**
-//     * @param a the x coordinate
-//     * @param b the y coordinate
-//     * @return the state of the cell
-//     */
-//    STATE live(int a, int b) {
-//        return (locate(a, b) == LOCALE.CENTER) ?
-//                atCenter(a, b) : atBorder(a, b);
-//    }
-
-
     /**
      * Check the locale of cell, who lives either at CENTER or BORDER.
      *
@@ -88,61 +77,6 @@ public class Life extends Model implements View {
     int wrapBorder(int coordinate) {
         return (coordinate + this.size) % this.size;
     }
-
-//    /**
-//     * Determine a cell's life at center.
-//     *
-//     * @param a x coordinate
-//     * @param b y coordinate
-//     * @return the state of the cell
-//     */
-//    STATE atCenter(int a, int b) {
-//        int neighbors = 0;
-//        for (int i = a - 1; i <= (a + 1); ++i) {
-//            for (int j = b - 1; j <= (b + 1); ++j) {
-//                if (i == a && j == b) continue;
-//                if (this.map[i][j] == 1) ++neighbors;
-//                if (neighbors > 3) break;
-//            }
-//        }
-//        if (neighbors < 2 || neighbors > 3) {
-//            return (this.map[a][b] == 1) ?
-//                    STATE.DEAD : STATE.ALIVE;
-//        } else return STATE.DEAD;
-//    }
-//
-//
-//    /**
-//     * Determine a cell's life at borders.
-//     *
-//     * @param a x coordinate
-//     * @param b y coordinate
-//     * @return the state of the cell
-//     */
-//    STATE atBorder(int a, int b) {
-//        int neighbors = 0;
-//        int MIN = 0;
-//        int MAX = this.size - 1;
-//
-//        int r = (a == 0) ? MAX : a - 1;  // row sentinel
-//        for (int i = 0; i < 3; ++i) {
-//            int c = (b == 0) ? MAX : b - 1;  // column sentinel
-//            for (int j = 0; j < 3; ++j) {
-//                if (this.map[r][c] == 1) ++neighbors;
-//                if (neighbors > 3) break;
-////                neighbors += (this.map[r][c] == 1) ? 1 : 0;
-//                ++c;
-//                if (c > MAX) c = MIN; // wrap around
-//                if (r == a && c == b) --neighbors;  // continue if self
-//            }
-//            ++r;
-//            if (r > MAX) r = MIN; // wrap around
-//        }
-//        if (neighbors < 2 || neighbors > 3) {
-//            return (this.map[a][b] == 1) ?
-//                    STATE.DEAD : STATE.ALIVE;
-//        } else return STATE.DEAD;
-//    }
 
 
     /**
