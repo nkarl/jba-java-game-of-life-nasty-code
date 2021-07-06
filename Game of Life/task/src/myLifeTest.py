@@ -18,36 +18,24 @@ class Life:
 
 
     def propagate(self, gens: int):
-        if (gens > 0):
-            for i in range(0, gens):
-                self.generate()
-                self.view()
+        print("GEN 0:")
+        self.view()
+        # if (gens > 0):
+        for i in range(0, gens):
+            self.generate()
+            print(f"GEN {i}:")
+            self.view()
 
 
     def generate(self):
-        self.view()
+        # self.view()
         for i in range(0, self.size):
             for j in range(0, self.size):
+                # self.view_local(i, j)
                 self.map[i][j] = self.live(i, j)
-                self.view_local(i, j)
-    # def generate(self):
-        # for i in range(0, self.size):
-            # for j in range(0, self.size):
-                # self.map[i][j] = 1 if self.__alive(i, j) else 0
+            # self.view()
+        # self.view()
 
-
-    def __alive(self, row: int, col: int):
-        neighbors = 0
-        for i in range(-1, 2):
-            r = self.__wrap(row + i)
-            for j in range(-1, 2):
-                c = self.__wrap(col + j)
-                if r == row and c == col:
-                    continue
-                neighbors += 1 if self.map[i][j] == 1 else 0
-                if neighbors > 3:
-                    break
-        return 1 if neighbors == 2 or neighbors == 3 else 0
 
     def live(self, row: int, col: int):
         state: int 
@@ -70,6 +58,19 @@ class Life:
                 k += 1 if cell == 1 else 0
                     # k -= 1
         return k
+
+    def __alive(self, row: int, col: int):
+        neighbors = 0
+        for i in range(-1, 2):
+            r = self.__wrap(row + i)
+            for j in range(-1, 2):
+                c = self.__wrap(col + j)
+                if r == row and c == col:
+                    continue
+                neighbors += 1 if self.map[i][j] == 1 else 0
+                if neighbors > 3:
+                    break
+        return 1 if neighbors == 2 or neighbors == 3 else 0
 
 
     def checkNeighbors(self, row: int, col: int):
@@ -133,7 +134,7 @@ class Life:
 
     def view_local(self, r: int, c: int):
         print("\t----------------------------------------------------")
-        print(f"\tRAW @ ({r}, {c}):")
+        print(f"\tRAW @ (c={c}, r={r}):")
         print("\t----------------------------------------------------\n")
         self.view()
         pass
@@ -176,7 +177,7 @@ if __name__ == "__main__":
     # m.viewNeighbors(b)
     # c = m.checkNeighbors(7,8)
     # m.viewNeighbors(c)
-    m = Life(5, 5)
+    m = Life(5, 1)
     # m.rawview()
-    m.propagate(1)
+    m.propagate(10)
     # m.rawview()

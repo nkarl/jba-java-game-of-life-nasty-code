@@ -1,10 +1,6 @@
 package life.engine;
 
 public abstract class Model {
-    enum LOCALE {CENTER, BORDER}
-
-    enum STATE {ALIVE, DEAD}
-
     int size;
     protected int[][] map;
 
