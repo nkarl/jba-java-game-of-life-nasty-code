@@ -8,9 +8,9 @@ import java.util.Random;
  */
 public class Life extends Model implements View {
 
-    public Life(int size, long seed) {
+    public Life(int size) {
         super(size);
-        Random random = new Random(seed);
+        Random random = new Random();
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j)
                 this.map[i][j] = (random.nextBoolean()) ? 1 : 0;

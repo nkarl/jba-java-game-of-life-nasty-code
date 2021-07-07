@@ -10,7 +10,7 @@ public class Main {
         int size = scanner.nextInt();
         long seed = scanner.nextLong();
         int gens = scanner.nextInt();
-        Life world = new Life(size, seed);
+        Life world = new Life(size);
 
         world.propagate(gens);
         world.view();
