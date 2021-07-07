@@ -24,12 +24,13 @@ public class Life extends Model implements View {
         }
     }
 
+
     /**
      * @param gens the total number of generations to propagate through.
      */
     public void propagate(int gens) {
-        if (gens > 0)
-            for (int i = 1; i <= gens; ++i) generate();
+        for (int i = 0; i < gens; ++i)
+            generate();
         view();
     }
 
@@ -43,9 +44,14 @@ public class Life extends Model implements View {
         for (int i = 0; i < this.size - 1; ++i) {
             for (int j = 0; j < this.size - 1; ++j) {
                 cell = liveOrDie(i, j);
-                this.map[i][j] = (cell == STATE.ALIVE) ? 1 : 0;
+                if (cell == STATE.ALIVE && (this.map[i][j] == 1 || this.map[i][j] == 0)) {
+                    future.map[i][j] = 1;
+                } else {
+                    future.map[i][j] = this.map[i][j];
+                }
             }
         }
+        this.map = future.map;
     }
 
 
@@ -56,8 +62,7 @@ public class Life extends Model implements View {
      */
     STATE liveOrDie(int a, int b) {
         return (locate(a, b) == LOCALE.CENTER) ?
-                atCenter(a, b) :
-                atBorder(a, b);
+                atCenter(a, b) : atBorder(a, b);
     }
 
 
@@ -70,8 +75,7 @@ public class Life extends Model implements View {
      */
     LOCALE locate(int a, int b) {
         return ((a > 0 && a < this.size) && (b > 0 && b < this.size)) ?
-                LOCALE.CENTER :
-                LOCALE.BORDER;
+                LOCALE.CENTER : LOCALE.BORDER;
     }
 
 
@@ -91,10 +95,8 @@ public class Life extends Model implements View {
                 if (neighbors > 3) break;
             }
         }
-        if (neighbors < 2 || neighbors > 3) {
-            return (this.map[a][b] == 1) ?
-                    STATE.DEAD : STATE.ALIVE;
-        } else return STATE.DEAD;
+        return (neighbors == 2 || neighbors == 3) ?
+            STATE.ALIVE : STATE.DEAD;
     }
 
 
@@ -124,10 +126,8 @@ public class Life extends Model implements View {
             ++r;
             if (r > MAX) r = MIN; // wrap around
         }
-        if (neighbors < 2 || neighbors > 3) {
-            return (this.map[a][b] == 1) ?
-                    STATE.DEAD : STATE.ALIVE;
-        } else return STATE.DEAD;
+        return (neighbors == 2 || neighbors == 3) ?
+                STATE.ALIVE : STATE.DEAD;
     }
 
 
