@@ -1,6 +1,6 @@
 import random
 
-class Life:
+class LifeCore:
     """class constructor takes two params.
 
         :param size: size of the cell map
@@ -51,20 +51,6 @@ class Life:
                 cell = self.map[r][c]
                 k += 1 if cell == 1 else 0
         return k
-
-    # def __alive(self, row: int, col: int):
-        # neighbors = 0
-        # for i in range(-1, 2):
-            # r = self.__wrap(row + i)
-            # for j in range(-1, 2):
-                # c = self.__wrap(col + j)
-                # if r == row and c == col:
-                    # continue
-                # neighbors += 1 if self.map[i][j] == 1 else 0
-                # if neighbors > 3:
-                    # break
-        # return 1 if neighbors == 2 or neighbors == 3 else 0
-
 
     def checkNeighbors(self, row: int, col: int):
         k = 0
@@ -117,19 +103,23 @@ class Life:
             i = i % 10
             view += f"{i} | "
             for j in range(len(self.map)):
-                view += 'O' if self.map[i][j] == 1 else '-'
+                view += f'{self.map[i][j]}' # if self.map[i][j] == 1 else ' '
                 view += ' '
             view += '\n\t\t'
         print(view)
 
     def view_local(self, r: int, c: int):
         print("\t----------------------------------------------------")
-        print(f"\tRAW @ (c={c}, r={r}):")
+        print(f"\tRAW @ ({r}, {c}):")
         print("\t----------------------------------------------------\n")
         self.view()
-        pass
 
-    def rawview(self):
+
+class Life(LifeCore):
+    def superview(self):
+        super().view();
+
+    def view(self):
         view = "\t\t  | "
         for i in range(0, len(self.map)):
             i = i % 10
@@ -144,17 +134,17 @@ class Life:
             i = i % 10
             view += f"{i} | "
             for j in range(len(self.map)):
-                view += f'{self.map[i][j]}' # if self.map[i][j] == 1 else ' '
+                view += 'O' if self.map[i][j] == 1 else '-'
                 view += ' '
             view += '\n\t\t'
         print(view)
 
-    def rawview_local(self, r: int, c: int):
+    def view_local(self, r: int, c: int):
         print("\t----------------------------------------------------")
-        print(f"\tRAW @ ({r}, {c}):")
+        print(f"\tRAW @ (c={c}, r={r}):")
         print("\t----------------------------------------------------\n")
-        self.rawview()
-
+        self.view()
+        pass
 
 if __name__ == "__main__":
     # m = Life(15,4)

@@ -12,6 +12,75 @@ files:
         }
     }
   learner_created: false
+- name: src/life/engine/Model.java
+  visible: true
+  text: |
+    package life;
+
+    public class Model {
+        int size;
+        protected int[][] map;
+
+        Model(int size) {
+            this.size = size;
+            this.map = new int[size][size];
+        }
+    }
+  learner_created: true
+- name: src/life/engine/Life.java
+  visible: true
+  text: |
+    package life;
+
+    import java.util.Random;
+
+    public class Universe extends Model implements View {
+
+        public Universe(int size, int seed) {
+            super(size);
+
+            Random rnd = new Random(seed);
+
+            for (int i = 0; i < size; ++i) {
+                for (int j = 0; j < size; ++j) {
+                    if (rnd.nextBoolean()) this.map[i][j] = 1;
+                    else this.map[i][j] = 0;
+                }
+            }
+        }
+
+
+        @Override
+        public void view() {
+            for (var row : this.map) {
+                for (int cell : row) {
+                    if (cell == 1) {
+                        System.out.print('O');
+                    }
+                    else {
+                        System.out.print(' ');
+                    }
+                }
+                System.out.print('\n');
+            }
+        }
+    }
+  learner_created: true
+- name: src/life/engine/View.java
+  visible: true
+  text: |
+    package life;
+
+    public interface View {
+        public void view();
+    }
+  learner_created: true
+- name: src/test.javaBAK
+  visible: true
+  learner_created: true
+- name: src/life/engine/Life.javaBAK
+  visible: true
+  learner_created: true
 - name: test/GameOfLifeTest.java
   visible: false
   text: |
@@ -188,84 +257,6 @@ files:
         }
     }
   learner_created: false
-- name: src/life/engine/Model.java
-  visible: true
-  text: |
-    package life;
-
-    public class Model {
-        int size;
-        protected int[][] map;
-
-        Model(int size) {
-            this.size = size;
-            this.map = new int[size][size];
-        }
-    }
-  learner_created: true
-- name: src/life/engine/Life.java
-  visible: true
-  text: |
-    package life;
-
-    import java.util.Random;
-
-    public class Universe extends Model implements View {
-
-        public Universe(int size, int seed) {
-            super(size);
-
-            Random rnd = new Random(seed);
-
-            for (int i = 0; i < size; ++i) {
-                for (int j = 0; j < size; ++j) {
-                    if (rnd.nextBoolean()) this.map[i][j] = 1;
-                    else this.map[i][j] = 0;
-                }
-            }
-        }
-
-
-        @Override
-        public void view() {
-            for (var row : this.map) {
-                for (int cell : row) {
-                    if (cell == 1) {
-                        System.out.print('O');
-                    }
-                    else {
-                        System.out.print(' ');
-                    }
-                }
-                System.out.print('\n');
-            }
-        }
-    }
-  learner_created: true
-- name: src/life/engine/View.java
-  visible: true
-  text: |
-    package life;
-
-    public interface View {
-        public void view();
-    }
-  learner_created: true
-- name: src/test.javaBAK
-  visible: true
-  learner_created: true
-- name: src/mytest.py
-  visible: true
-  learner_created: true
-- name: src/life/engine/Life.javaBAK
-  visible: true
-  learner_created: true
 feedback_link: https://hyperskill.org/projects/54/stages/295/implement#comment
-status: Failed
-feedback:
-  message: "Wrong answer in test #2\n\nYour output is wrong!\n\nPlease find below\
-    \ the output of your program during this failed test.\nNote that the &#39;&gt;&#39;\
-    \ character indicates the beginning of the input line.\n\n---\n\n&gt; 8 1 10\n\
-    \ OO O OO\n    O  O\nOOOO O  \n     O O\nOO   O O\n O   O  \n O  O OO\nOO  O"
-  time: Tue, 06 Jul 2021 17:57:51 UTC
+status: Solved
 record: -1

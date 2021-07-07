@@ -12,51 +12,6 @@ files:
         }
     }
   learner_created: false
-- name: test/GameOfLifeTest.java
-  visible: false
-  text: |
-    import org.hyperskill.hstest.dynamic.DynamicTest;
-    import org.hyperskill.hstest.stage.StageTest;
-    import org.hyperskill.hstest.testcase.CheckResult;
-    import org.hyperskill.hstest.testing.TestedProgram;
-
-    import java.util.List;
-
-
-    public class GameOfLifeTest extends StageTest<String> {
-
-        int[] sizes = {5, 6, 7, 8, 9, 10};
-
-        @DynamicTest(data = "sizes")
-        CheckResult test(int size) {
-
-            TestedProgram program = new TestedProgram();
-            program.start();
-
-            String output = program.execute(String.valueOf(size));
-
-            if (output.isEmpty()) {
-                return CheckResult.wrong("Looks like your output is empty!");
-            }
-
-            if (!output.toLowerCase().contains("generation")) {
-                return CheckResult.wrong("Can't find 'Generation' word in the output!");
-            }
-
-            String[] generations = output.toLowerCase().split("generation");
-
-            if (generations.length < 11) {
-                return CheckResult.wrong("Your output should contain not less than 10 generations!");
-            }
-
-            List<Generation> generationsList = Generation.getGenerations(generations, size);
-
-            Generation.isCorrectGenerationsList(generationsList);
-
-            return CheckResult.correct();
-        }
-    }
-  learner_created: false
 - name: test/Generation.java
   visible: false
   text: |
@@ -178,6 +133,120 @@ files:
                     throw new WrongAnswer("Generation #" + (i + 1) + " is wrong!");
                 }
             }
+        }
+    }
+  learner_created: false
+- name: src/life/engine/Life.java
+  visible: true
+  text: |
+    package life;
+
+    import java.util.Random;
+
+    public class Universe extends Model implements View {
+
+        public Universe(int size, int seed) {
+            super(size);
+
+            Random rnd = new Random(seed);
+
+            for (int i = 0; i < size; ++i) {
+                for (int j = 0; j < size; ++j) {
+                    if (rnd.nextBoolean()) this.map[i][j] = 1;
+                    else this.map[i][j] = 0;
+                }
+            }
+        }
+
+
+        @Override
+        public void view() {
+            for (var row : this.map) {
+                for (int cell : row) {
+                    if (cell == 1) {
+                        System.out.print('O');
+                    }
+                    else {
+                        System.out.print(' ');
+                    }
+                }
+                System.out.print('\n');
+            }
+        }
+    }
+  learner_created: true
+- name: src/life/engine/Life.javaBAK
+  visible: true
+  learner_created: true
+- name: src/life/engine/Model.java
+  visible: true
+  text: |
+    package life;
+
+    public class Model {
+        int size;
+        protected int[][] map;
+
+        Model(int size) {
+            this.size = size;
+            this.map = new int[size][size];
+        }
+    }
+  learner_created: true
+- name: src/test.javaBAK
+  visible: true
+  learner_created: true
+- name: src/life/engine/View.java
+  visible: true
+  text: |
+    package life;
+
+    public interface View {
+        public void view();
+    }
+  learner_created: true
+- name: test/GameOfLifeTest.java
+  visible: false
+  text: |
+    import org.hyperskill.hstest.dynamic.DynamicTest;
+    import org.hyperskill.hstest.stage.StageTest;
+    import org.hyperskill.hstest.testcase.CheckResult;
+    import org.hyperskill.hstest.testing.TestedProgram;
+
+    import java.util.List;
+
+
+    public class GameOfLifeTest extends StageTest<String> {
+
+        int[] sizes = {5, 6, 7, 8, 9, 10};
+
+        @DynamicTest(data = "sizes")
+        CheckResult test(int size) {
+
+            TestedProgram program = new TestedProgram();
+            program.start();
+
+            String output = program.execute(String.valueOf(size));
+
+            if (output.isEmpty()) {
+                return CheckResult.wrong("Looks like your output is empty!");
+            }
+
+            if (!output.toLowerCase().contains("generation")) {
+                return CheckResult.wrong("Can't find 'Generation' word in the output!");
+            }
+
+            String[] generations = output.toLowerCase().split("generation");
+
+            if (generations.length < 11) {
+                return CheckResult.wrong("Your output should contain not less than 10 generations!");
+            }
+
+            List<Generation> generationsList = Generation.getGenerations(generations, size);
+
+            Generation.isCorrectGenerationsList(generationsList);
+
+            return CheckResult.correct();
         }
     }
   learner_created: false

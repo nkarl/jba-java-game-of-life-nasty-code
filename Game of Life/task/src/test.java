@@ -1,10 +1,7 @@
-package life;
-
+import java.util.Scanner;
 import life.engine.Life;
 
-import java.util.Scanner;
-
-public class Main {
+public class test {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int size = scanner.nextInt();
