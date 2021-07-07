@@ -80,6 +80,130 @@ files:
         }
     }
   learner_created: false
+- name: src/life/engine/Life.java
+  visible: true
+  text: |
+    package life.engine;
+
+    import java.util.Random;
+
+    /*
+        Reference Gist from HeyMilkshake, moderator @JetBrains Academy's Discord
+        https://gist.github.com/msmilkshake/f887e0fed34521117c44be29a4471fdc
+     */
+    public class Life extends Model implements View {
+
+        public Life(int size) {
+            super(size);
+            Random random = new Random();
+            for (int i = 0; i < size; ++i) {
+                for (int j = 0; j < size; ++j)
+                    this.map[i][j] = (random.nextBoolean()) ? 1 : 0;
+            }
+        }
+
+        @Override
+        public void propagate(int gens) {
+            for (int i = 0; i < gens; ++i) {
+                generate();
+                view();
+            }
+        }
+
+        @Override
+        void generate() {
+            for (int i = 0; i < this.size - 1; ++i) {
+                for (int j = 0; j < this.size - 1; ++j)
+                    this.map[i][j] = live(i, j) ? 1 : 0;
+            }
+        }
+
+        boolean live(int row, int col) {
+            int count = countNeighbors(row, col);
+            return count == 2 || count == 3;
+        }
+
+        int countNeighbors(int row, int col) {
+            int count = 0;
+            int r, c;
+
+            for (int i = -1; i < 2; ++i) {
+                r = wrapBorder(i + row);
+                for (int j = -1; j < 2; ++j) {
+                    c = wrapBorder(j + col);
+                    if (r == row && c == col) continue;
+                    count += (this.map[r][c] == 1) ? 1 : 0;
+                }
+            }
+            return count;
+        }
+
+        int wrapBorder(int coordinate) {
+            return (coordinate) % this.size;
+        }
+
+
+        /**
+         * Interface: view the map of life.
+         */
+        @Override
+        public void view() {
+            for (var row : this.map) {
+                for (int cell : row) {
+                    if (cell == 1) System.out.print('O');
+                    else System.out.print(' ');
+                }
+                System.out.println();
+            }
+        }
+    }
+  learner_created: true
+- name: src/life/engine/Life.class
+  visible: true
+  text: yv66vgAAADwARAoAAgADBwAEDAAFAAYBABFsaWZlL2VuZ2luZS9Nb2RlbAEABjxpbml0PgEABChJKVYHAAgBABBqYXZhL3V0aWwvUmFuZG9tCgAHAAoMAAUACwEAAygpVgkADQAOBwAPDAAQABEBABBsaWZlL2VuZ2luZS9MaWZlAQADbWFwAQADW1tJCgAHABMMABQAFQEAC25leHRCb29sZWFuAQADKClaCgANABcMABgACwEACGdlbmVyYXRlCQANABoMABsAHAEABHNpemUBAAFJCgANAB4MAB8AIAEABGxpdmUBAAUoSUkpWgoADQAiDAAjACQBAA5jb3VudE5laWdoYm9ycwEABShJSSlJCgANACYMACcAKAEACndyYXBCb3JkZXIBAAQoSSlJCQAqACsHACwMAC0ALgEAEGphdmEvbGFuZy9TeXN0ZW0BAANvdXQBABVMamF2YS9pby9QcmludFN0cmVhbTsKADAAMQcAMgwAMwA0AQATamF2YS9pby9QcmludFN0cmVhbQEABXByaW50AQAEKEMpVgoAMAA2DAA3AAsBAAdwcmludGxuBwA5AQAQbGlmZS9lbmdpbmUvVmlldwEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAA1TdGFja01hcFRhYmxlBwA+AQACW0kBAAlwcm9wYWdhdGUBAAR2aWV3BwARAQAKU291cmNlRmlsZQEACUxpZmUuamF2YQAhAA0AAgABADgAAAAHAAEABQAGAAEAOgAAAL0AAwAFAAAAPyobtwABuwAHWbcACU0DPh0bogAtAzYEFQQbogAeKrQADB0yFQQstgASmQAHBKcABANPhAQBp//ihAMBp//UsQAAAAIAOwAAACIACAAAAAwABQANAA0ADgAUAA8AHQAQADIADwA4AA4APgASADwAAABEAAb/AA8ABAcADQEHAAcBAAD8AAcB/wAYAAUHAA0BBwAHAQEAAgcAPQH/AAAABQcADQEHAAcBAQADBwA9AQH6AAb6AAUAAQA/AAYAAQA6AAAARQACAAMAAAASAz0cG6IADSq2ABaEAgGn//SxAAAAAgA7AAAAEgAEAAAAFgAHABcACwAWABEAGQA8AAAACQAC/AACAfoADgAAABgACwABADoAAACeAAUAAwAAADsDPBsqtAAZBGSiADEDPRwqtAAZBGSiAB8qtAAMGzIcKhsctgAdmQAHBKcABANPhAIBp//dhAEBp//LsQAAAAIAOwAAABoABgAAAB0ADAAeABgAHwAuAB4ANAAdADoAIQA8AAAAMQAG/AACAfwACwH/AB0AAwcADQEBAAIHAD0B/wAAAAMHAA0BAQADBwA9AQH6AAb6AAUAAAAfACAAAQA6AAAAQgADAAQAAAAXKhsctgAhPh0FnwAIHQagAAcEpwAEA6wAAAACADsAAAAKAAIAAAAkAAcAJQA8AAAACQAD/AARAQNAAQAAACMAJAABADoAAAD6AAMACAAAAFsDPgI2BhUGBaIAUSoVBhtgtgAlNgQCNgcVBwWiADgqFQccYLYAJTYFFQQboAAMFQUcoAAGpwAZHSq0AAwVBDIVBS4EoAAHBKcABANgPoQHAaf/yIQGAaf/rx2sAAAAAgA7AAAAKgAKAAAAKQACACwACwAtABUALgAeAC8AKAAwADcAMQBNAC4AUwAsAFkANAA8AAAAXQAI/wAFAAcHAA0BAQEAAAEAAP8AEgAIBwANAQEBAQABAQAA/wAeAAgHAA0BAQEBAQEBAABSAf8AAAAIBwANAQEBAQEBAQACAQEB/wAFAAcHAA0BAQEBAAEAAPgABQAAACcAKAABADoAAAAfAAIAAgAAAAcbKrQAGXCsAAAAAQA7AAAABgABAAAAOAABAEAACwABADoAAADJAAIACQAAAFoqtAAMTCu+PQM+HRyiAE0rHTI6BBkEOgUZBb42BgM2BxUHFQaiACkZBRUHLjYIFQgEoAAOsgApEE+2AC+nAAuyACkQILYAL4QHAaf/1rIAKbYANYQDAaf/tLEAAAACADsAAAAiAAgAAABBABQAQgAuAEMAPwBEAEcAQgBNAEYAUwBBAFkASAA8AAAANQAG/gAKBwBBAQH/ABUACAcADQcAQQEBBwA9BwA9AQEAAPwAHgH6AAf4AAX/AAsAAQcADQAAAAEAQgAAAAIAQw==
+  learner_created: true
+- name: src/life/engine/Life.javaBAK
+  visible: true
+  learner_created: true
+- name: src/life/engine/Model.java
+  visible: true
+  text: |
+    package life.engine;
+
+    public abstract class Model {
+        int size;
+        protected int[][] map;
+
+        Model(int size) {
+            this.size = size;
+            this.map = new int[size][size];
+        }
+
+        public abstract void propagate(int gens);
+
+        abstract void generate();
+    }
+  learner_created: true
+- name: src/test.javaBAK
+  visible: true
+  learner_created: true
+- name: src/life/engine/View.java
+  visible: true
+  text: |
+    package life.engine;
+
+    public interface View {
+        public void view();
+    }
+  learner_created: true
+- name: src/life/engine/View.class
+  visible: true
+  text: yv66vgAAADwACQcAAgEAEGxpZmUvZW5naW5lL1ZpZXcHAAQBABBqYXZhL2xhbmcvT2JqZWN0AQAEdmlldwEAAygpVgEAClNvdXJjZUZpbGUBAAlWaWV3LmphdmEGAQABAAMAAAAAAAEEAQAFAAYAAAABAAcAAAACAAg=
+  learner_created: true
+- name: src/life/engine/Model.class
+  visible: true
+  text: yv66vgAAADwAGQoAAgADBwAEDAAFAAYBABBqYXZhL2xhbmcvT2JqZWN0AQAGPGluaXQ+AQADKClWCQAIAAkHAAoMAAsADAEAEWxpZmUvZW5naW5lL01vZGVsAQAEc2l6ZQEAAUkHAA4BAANbW0kJAAgAEAwAEQAOAQADbWFwAQAEKEkpVgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAAlwcm9wYWdhdGUBAAhnZW5lcmF0ZQEAClNvdXJjZUZpbGUBAApNb2RlbC5qYXZhBCEACAACAAAAAgAAAAsADAAAAAQAEQAOAAAAAwAAAAUAEgABABMAAAA4AAMAAgAAABQqtwABKhu1AAcqGxvFAA0CtQAPsQAAAAEAFAAAABIABAAAAAcABAAIAAkACQATAAoEAQAVABIAAAQAABYABgAAAAEAFwAAAAIAGA==
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/54/stages/298/implement#comment
 status: Unchecked
 record: -1

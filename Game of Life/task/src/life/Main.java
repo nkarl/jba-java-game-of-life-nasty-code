@@ -13,6 +13,5 @@ public class Main {
         Life world = new Life(size);
 
         world.propagate(gens);
-        world.view();
     }
 }

@@ -7,9 +7,9 @@ public class test {
         int size = scanner.nextInt();
         int seed = scanner.nextInt();
         int gens = scanner.nextInt();
-        Life world = new Life(size, seed);
+        Life world = new Life(size);
 
-        world.view();
         world.propagate(gens);
+        world.view();
     }
 }

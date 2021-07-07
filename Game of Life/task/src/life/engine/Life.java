@@ -21,6 +21,7 @@ public class Life extends Model implements View {
     public void propagate(int gens) {
         for (int i = 0; i < gens; ++i) {
             generate();
+            view();
         }
     }
 
