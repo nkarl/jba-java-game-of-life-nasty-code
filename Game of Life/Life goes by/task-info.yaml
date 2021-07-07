@@ -181,6 +181,15 @@ files:
         }
     }
   learner_created: false
+- name: bin/main/myLifeTest.py
+  visible: true
+  learner_created: true
+- name: src/life/engine/Life.javaBAK
+  visible: true
+  learner_created: true
+- name: bin/main/life/engine/Life.javaBAK
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/54/stages/296/implement#comment
-status: Unchecked
-record: -1
+status: Failed
+record: 6

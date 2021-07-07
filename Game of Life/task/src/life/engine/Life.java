@@ -2,10 +2,6 @@ package life.engine;
 
 import java.util.Random;
 
-/*
-    Reference Gist from HeyMilkshake, moderator @JetBrains Academy's Discord
-    https://gist.github.com/msmilkshake/f887e0fed34521117c44be29a4471fdc
- */
 public class Life extends Model implements View {
     enum LOCALE {CENTER, BORDER}
 
@@ -43,6 +39,7 @@ public class Life extends Model implements View {
      */
     void generate() {
         STATE cell;
+        Model future = new Model(this.size) {};
         for (int i = 0; i < this.size - 1; ++i) {
             for (int j = 0; j < this.size - 1; ++j) {
                 cell = liveOrDie(i, j);
@@ -106,8 +103,7 @@ public class Life extends Model implements View {
         }
         if (neighbors < 2 || neighbors > 3) {
             return (this.map[a][b] == 1) ?
-                    STATE.DEAD :
-                    STATE.ALIVE;
+                    STATE.DEAD : STATE.ALIVE;
         } else return STATE.DEAD;
     }
 
@@ -130,8 +126,7 @@ public class Life extends Model implements View {
         }
         if (neighbors < 2 || neighbors > 3) {
             return (this.map[a][b] == 1) ?
-                    STATE.DEAD :
-                    STATE.ALIVE;
+                    STATE.DEAD : STATE.ALIVE;
         } else return STATE.DEAD;
     }
 

@@ -255,11 +255,5 @@ files:
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/projects/54/stages/295/implement#comment
-status: Failed
-feedback:
-  message: "Wrong answer in test #2\n\nYour output is wrong!\n\nPlease find below\
-    \ the output of your program during this failed test.\nNote that the &#39;&gt;&#39;\
-    \ character indicates the beginning of the input line.\n\n---\n\n&gt; 8 1 10\n\
-    \ O    OO\n O    OO\n      O \n       O\n   O   O\nOO  O   \nOO    OO\nOO  O"
-  time: Mon, 05 Jul 2021 18:34:28 UTC
-record: -1
+status: Solved
+record: 9
