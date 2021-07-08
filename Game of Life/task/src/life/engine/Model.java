@@ -11,8 +11,4 @@ public abstract class Model {
 
     public void propagate(int gens) {}
     void generate() {}
-    void live() {}
-    void locate() {}
-    void atCenter() {}
-    void atBorder() {}
 }
