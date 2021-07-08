@@ -1,0 +1,335 @@
+type: edu
+custom_name: stage3
+files:
+- name: src/life/Main.java
+  visible: true
+  text: |
+    package life;
+
+    public class Main {
+        public static void main(String[] args) {
+            System.out.println("Hello, world!");
+        }
+    }
+  learner_created: false
+- name: test/GameOfLifeTest.java
+  visible: false
+  text: |
+    import org.hyperskill.hstest.dynamic.DynamicTest;
+    import org.hyperskill.hstest.stage.StageTest;
+    import org.hyperskill.hstest.testcase.CheckResult;
+    import org.hyperskill.hstest.testing.TestedProgram;
+
+    import java.util.List;
+
+
+    public class GameOfLifeTest extends StageTest<String> {
+
+        int[] sizes = {5, 6, 7, 8, 9, 10};
+
+        @DynamicTest(data = "sizes")
+        CheckResult test(int size) {
+
+            TestedProgram program = new TestedProgram();
+            program.start();
+
+            String output = program.execute(String.valueOf(size));
+
+            if (output.isEmpty()) {
+                return CheckResult.wrong("Looks like your output is empty!");
+            }
+
+            if (!output.toLowerCase().contains("generation")) {
+                return CheckResult.wrong("Can't find 'Generation' word in the output!");
+            }
+
+            String[] generations = output.toLowerCase().split("generation");
+
+            if (generations.length < 11) {
+                return CheckResult.wrong("Your output should contain not less than 10 generations!");
+            }
+
+            List<Generation> generationsList = Generation.getGenerations(generations, size);
+
+            Generation.isCorrectGenerationsList(generationsList);
+
+            return CheckResult.correct();
+        }
+    }
+  learner_created: false
+- name: test/Generation.java
+  visible: false
+  text: |
+    import org.hyperskill.hstest.exception.outcomes.WrongAnswer;
+
+    import java.util.ArrayList;
+    import java.util.Arrays;
+    import java.util.List;
+    import java.util.regex.Matcher;
+    import java.util.regex.Pattern;
+    import java.util.stream.Collectors;
+
+    public class Generation {
+
+        private static final Pattern pattern = Pattern.compile("alive:(\\s+)?(\\d+)", Pattern.MULTILINE);
+        private final boolean[][] cells;
+        private final int size;
+
+
+        public Generation(List<String> lines) {
+
+            size = lines.size();
+            cells = new boolean[size][size];
+
+            for (int i = 0; i < lines.size(); i++) {
+                for (int j = 0; j < lines.size(); j++) {
+                    cells[i][j] = lines.get(i).charAt(j) == 'o';
+                }
+            }
+        }
+
+        public static List<Generation> getGenerations(String[] generationsFromOutput, int correctSize) {
+
+            List<Generation> generations = new ArrayList<>();
+
+            for (int i = 1; i < generationsFromOutput.length; i++) {
+                String generation = generationsFromOutput[i].toLowerCase();
+
+                Matcher matcher = pattern.matcher(generation);
+
+                if (!matcher.find()) {
+                    throw new WrongAnswer("Can't find number of Alive cells in the generation with number "
+                            + (i + 1) + ".\nYour output should contain 'Alive: DDD', where D is a digit!");
+                }
+
+                int aliveFromOutput = Integer.parseInt(matcher.group(2));
+
+                List<String> lines = Arrays.stream(generation.split("\n"))
+                        .filter(line -> !line.contains("alive") && !line.contains("#") && !line.isEmpty())
+                        .collect(Collectors.toList());
+
+                if (lines.size() != correctSize) {
+                    throw new WrongAnswer("Generation #" + (i + 1) + " map size is wrong!\nYour size: " + lines.size() + "\n" +
+                            "Expected size: " + correctSize);
+                }
+
+                int activeCellsInGeneration = (int) lines.stream().map(line -> line.split("")).flatMap(cells -> Arrays.stream(cells.clone())).filter(cell -> cell.equals("o")).count();
+
+                if (activeCellsInGeneration != aliveFromOutput) {
+                    throw new WrongAnswer("Active cells in the generation #" + (i + 1) + ": " + activeCellsInGeneration + "\n" +
+                            "Your output: 'Alive: " + aliveFromOutput + "'");
+                }
+
+                for (String line : lines) {
+                    if (line.length() != correctSize) {
+                        throw new WrongAnswer("Generation map size is wrong!\nYour size: " + lines.size() + "\n" +
+                                "Expected size: " + correctSize + "\nMake sure you don't print extra spaces at the end of the lines!");
+                    }
+                }
+
+                generations.add(new Generation(lines));
+            }
+
+            return generations;
+        }
+
+        public boolean isCorrectNextGeneration(Generation generation) {
+
+            if (generation.size != size) {
+                return false;
+            }
+
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+
+                    int numberOfNeighbours = 0;
+
+                    int up = i - 1 < 0 ? size - 1 : i - 1;
+                    int down = i + 1 == size ? 0 : i + 1;
+                    int right = j + 1 == size ? 0 : j + 1;
+                    int left = j - 1 < 0 ? size - 1 : j - 1;
+
+                    if (cells[up][left]) numberOfNeighbours++;
+                    if (cells[up][j]) numberOfNeighbours++;
+                    if (cells[up][right]) numberOfNeighbours++;
+                    if (cells[i][left]) numberOfNeighbours++;
+                    if (cells[i][right]) numberOfNeighbours++;
+                    if (cells[down][left]) numberOfNeighbours++;
+                    if (cells[down][j]) numberOfNeighbours++;
+                    if (cells[down][right]) numberOfNeighbours++;
+
+                    if ((numberOfNeighbours < 2 || numberOfNeighbours > 3) && generation.cells[i][j]) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+
+        public static void isCorrectGenerationsList(List<Generation> generations) {
+
+            if (generations.size() <= 1) {
+                return;
+            }
+
+            for (int i = 1; i < generations.size(); i++) {
+                if (!generations.get(i - 1).isCorrectNextGeneration(generations.get(i))) {
+                    throw new WrongAnswer("Generation #" + (i + 1) + " is wrong!");
+                }
+            }
+        }
+    }
+  learner_created: false
+- name: bin/main/myLifeTest.py
+  visible: true
+  learner_created: true
+- name: src/life/engine/Life.javaBAK
+  visible: true
+  learner_created: true
+- name: bin/main/life/engine/Life.javaBAK
+  visible: true
+  learner_created: true
+- name: src/life/engine/Life.java
+  visible: true
+  text: |
+    package life.engine;
+
+    import java.util.Random;
+
+    public class Life extends Model implements View {
+
+        /**
+         * The Life Constructor.
+         *
+         * @param size size of this map.
+         * @param seed the seeded value for the randomizing algorithm.
+         */
+        public Life(int size, int seed) {
+            super(size);
+            Random random = new Random();
+            for (int i = 0; i < size; ++i) {
+                for (int j = 0; j < size; ++j)
+                    this.map[i][j] = (random.nextBoolean()) ? 1 : 0;
+            }
+        }
+
+        @Override
+        /**
+         * @param gens the total number of generations to propagate through.
+         */
+        public void propagate(int gens) {
+            for (int i = 0; i < gens; ++i) {
+                generate();
+            }
+        }
+
+        @Override
+        void generate() {
+            Model future = new Model(this.size) {};
+            for (int row = 0; row < this.size; ++row) {
+                for (int col = 0; col < this.size; ++col) {
+                    int neighbors = neighbors(row, col);
+                    if (neighbors == 3) {
+                        future.map[row][col] = 1;
+                    }
+                    else if (neighbors == 2) {
+                        future.map[row][col] = this.map[row][col];
+                    } else {
+                        future.map[row][col] = 0;
+                    }
+                }
+            }
+            this.map = future.map;
+        }
+
+        int neighbors(int row, int col) {
+            int count = 0;
+            for (int i = -1; i < 2; ++i) {
+                for (int j = -1; j < 2; ++j) {
+                    if (i == 0 && j == 0) continue;
+                    count += checkCell(i + row, j + col);
+                }
+            }
+            return count;
+        }
+
+        int checkCell(int row, int col) {
+            row = checkIndex(row, this.size);
+            col = checkIndex(col, this.size);
+            return (this.map[row][col] == 1) ? 1 : 0;
+        }
+
+        static int checkIndex(int index, int size) {
+            int MAX = size - 1;
+            if (index < 0) index = MAX;
+            if (index > MAX) index = 0;
+            return index;
+        }
+
+
+        /**
+         * Interface: view the map of life.
+         */
+        @Override
+        public void view() {
+            for (var row : this.map) {
+                for (int cell : row) {
+                    if (cell == 1) System.out.print('O');
+                    else System.out.print(' ');
+                }
+                System.out.println();
+            }
+        }
+    }
+  learner_created: true
+- name: src/myLifeTest.py
+  visible: true
+  learner_created: true
+- name: bin/main/test.javaBAK
+  visible: true
+  learner_created: true
+- name: bin/main/life/engine/Life$1.class
+  visible: true
+  text: yv66vgAAADcAKQcAAgEAEmxpZmUvZW5naW5lL0xpZmUkMQcABAEAEWxpZmUvZW5naW5lL01vZGVsAQAGdGhpcyQwAQASTGxpZmUvZW5naW5lL0xpZmU7AQAGPGluaXQ+AQAWKExsaWZlL2VuZ2luZS9MaWZlO0kpVgEABENvZGUJAAEACwwABQAGCgADAA0MAAcADgEABChJKVYBAA9MaW5lTnVtYmVyVGFibGUBABJMb2NhbFZhcmlhYmxlVGFibGUBAAR0aGlzAQAUTGxpZmUvZW5naW5lL0xpZmUkMTsBAAskYW5vbnltb3VzMAEAAUkBAAlwcm9wYWdhdGUHABcBAA9qYXZhL2xhbmcvRXJyb3IIABkBAHtVbnJlc29sdmVkIGNvbXBpbGF0aW9uIHByb2JsZW06IAoJVGhlIHR5cGUgbmV3IE1vZGVsKCl7fSBtdXN0IGltcGxlbWVudCB0aGUgaW5oZXJpdGVkIGFic3RyYWN0IG1ldGhvZCBNb2RlbC5wcm9wYWdhdGUoaW50KQoKABYAGwwABwAcAQAVKExqYXZhL2xhbmcvU3RyaW5nOylWAQAIZ2VuZXJhdGUBAAMoKVYIACABAHdVbnJlc29sdmVkIGNvbXBpbGF0aW9uIHByb2JsZW06IAoJVGhlIHR5cGUgbmV3IE1vZGVsKCl7fSBtdXN0IGltcGxlbWVudCB0aGUgaW5oZXJpdGVkIGFic3RyYWN0IG1ldGhvZCBNb2RlbC5nZW5lcmF0ZSgpCgEAClNvdXJjZUZpbGUBAAlMaWZlLmphdmEBAA9FbmNsb3NpbmdNZXRob2QHACUBABBsaWZlL2VuZ2luZS9MaWZlDAAdAB4BAAxJbm5lckNsYXNzZXMBAAhOZXN0SG9zdAAgAAEAAwAAAAEQEAAFAAYAAAADAAAABwAIAAEACQAAAD8AAgADAAAACyortQAKKhy3AAyxAAAAAgAPAAAABgABAAAAIgAQAAAAFgACAAAACwARABIAAAAAAAsAEwAUAAIQAQAVAA4AAQAJAAAAIgADAAIAAAAKuwAWWRIYtwAavwAAAAEADwAAAAYAAQAAACIQAAAdAB4AAQAJAAAAIgADAAEAAAAKuwAWWRIftwAavwAAAAEADwAAAAYAAQAAACIABAAhAAAAAgAiACMAAAAEACQAJgAnAAAACgABAAEAAAAAAAAAKAAAAAIAJA==
+  learner_created: true
+- name: src/life/engine/Model.java
+  visible: true
+  text: |
+    package life.engine;
+
+    public abstract class Model {
+        int size;
+        protected int[][] map;
+
+        Model(int size) {
+            this.size = size;
+            this.map = new int[size][size];
+        }
+
+        public void propagate(int gens) {}
+        void generate() {}
+    }
+  learner_created: true
+- name: src/test.javaBAK
+  visible: true
+  learner_created: true
+- name: src/life/engine/View.java
+  visible: true
+  text: |
+    package life.engine;
+
+    public interface View {
+        public void view();
+    }
+  learner_created: true
+feedback_link: https://hyperskill.org/projects/54/stages/296/implement#comment
+status: Failed
+feedback:
+  message: "Wrong answer in test #1\n\nCan&#39;t find &#39;Generation&#39; word in\
+    \ the output!\n\nPlease find below the output of your program during this failed\
+    \ test.\nNote that the &#39;&gt;&#39; character indicates the beginning of the\
+    \ input line.\n\n---\n\n&gt; 5\n   O \n  O  \nO  O \n    O\n    O\n   O \n  OOO\n\
+    \   OO\nO  OO\n   OO\n     \n  O  \n     \nO O  \nO O  \n O   \n     \n O"
+  time: Thu, 08 Jul 2021 01:52:05 UTC
+record: 6

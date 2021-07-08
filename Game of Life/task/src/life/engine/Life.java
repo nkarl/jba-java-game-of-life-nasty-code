@@ -12,6 +12,15 @@ public class Life extends Model implements View {
      */
     public Life(int size, int seed) {
         super(size);
+        Random random = new Random(seed);
+        for (int i = 0; i < size; ++i) {
+            for (int j = 0; j < size; ++j)
+                this.map[i][j] = (random.nextBoolean()) ? 1 : 0;
+        }
+    }
+
+    public Life(int size) {
+        super(size);
         Random random = new Random();
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j)
@@ -19,14 +28,16 @@ public class Life extends Model implements View {
         }
     }
 
-    @Override
     /**
      * @param gens the total number of generations to propagate through.
      */
+    @Override
     public void propagate(int gens) {
         for (int i = 0; i < gens; ++i) {
+            view();
             generate();
         }
+        view();
     }
 
     @Override
