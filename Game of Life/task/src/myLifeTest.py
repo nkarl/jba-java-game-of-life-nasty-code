@@ -85,7 +85,7 @@ class LifeCore:
 
 
     def __wrap(self, c: int):
-        return (c) % self.size
+        return (c + self.size) % self.size
 
 
     def view(self):
@@ -157,7 +157,7 @@ if __name__ == "__main__":
     # m.viewNeighbors(b)
     # c = m.checkNeighbors(7,8)
     # m.viewNeighbors(c)
-    m = Life(15, 10)
+    m = Life(5, 1)
     # m.rawview()
     m.propagate(10)
     # m.rawview()
