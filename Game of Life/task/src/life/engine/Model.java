@@ -9,7 +9,6 @@ public abstract class Model {
         this.map = new int[size][size];
     }
 
-    public abstract void propagate(int gens);
-
-    abstract void generate();
+    public void propagate(int gens) {}
+    void generate() {}
 }
