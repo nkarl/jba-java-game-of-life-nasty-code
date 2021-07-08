@@ -286,9 +286,6 @@ files:
 - name: src/myLifeTest.py
   visible: true
   learner_created: true
-- name: bin/main/test.javaBAK
-  visible: true
-  learner_created: true
 - name: bin/main/life/engine/Life$1.class
   visible: true
   text: yv66vgAAADcAKQcAAgEAEmxpZmUvZW5naW5lL0xpZmUkMQcABAEAEWxpZmUvZW5naW5lL01vZGVsAQAGdGhpcyQwAQASTGxpZmUvZW5naW5lL0xpZmU7AQAGPGluaXQ+AQAWKExsaWZlL2VuZ2luZS9MaWZlO0kpVgEABENvZGUJAAEACwwABQAGCgADAA0MAAcADgEABChJKVYBAA9MaW5lTnVtYmVyVGFibGUBABJMb2NhbFZhcmlhYmxlVGFibGUBAAR0aGlzAQAUTGxpZmUvZW5naW5lL0xpZmUkMTsBAAskYW5vbnltb3VzMAEAAUkBAAlwcm9wYWdhdGUHABcBAA9qYXZhL2xhbmcvRXJyb3IIABkBAHtVbnJlc29sdmVkIGNvbXBpbGF0aW9uIHByb2JsZW06IAoJVGhlIHR5cGUgbmV3IE1vZGVsKCl7fSBtdXN0IGltcGxlbWVudCB0aGUgaW5oZXJpdGVkIGFic3RyYWN0IG1ldGhvZCBNb2RlbC5wcm9wYWdhdGUoaW50KQoKABYAGwwABwAcAQAVKExqYXZhL2xhbmcvU3RyaW5nOylWAQAIZ2VuZXJhdGUBAAMoKVYIACABAHdVbnJlc29sdmVkIGNvbXBpbGF0aW9uIHByb2JsZW06IAoJVGhlIHR5cGUgbmV3IE1vZGVsKCl7fSBtdXN0IGltcGxlbWVudCB0aGUgaW5oZXJpdGVkIGFic3RyYWN0IG1ldGhvZCBNb2RlbC5nZW5lcmF0ZSgpCgEAClNvdXJjZUZpbGUBAAlMaWZlLmphdmEBAA9FbmNsb3NpbmdNZXRob2QHACUBABBsaWZlL2VuZ2luZS9MaWZlDAAdAB4BAAxJbm5lckNsYXNzZXMBAAhOZXN0SG9zdAAgAAEAAwAAAAEQEAAFAAYAAAADAAAABwAIAAEACQAAAD8AAgADAAAACyortQAKKhy3AAyxAAAAAgAPAAAABgABAAAAIgAQAAAAFgACAAAACwARABIAAAAAAAsAEwAUAAIQAQAVAA4AAQAJAAAAIgADAAIAAAAKuwAWWRIYtwAavwAAAAEADwAAAAYAAQAAACIQAAAdAB4AAQAJAAAAIgADAAEAAAAKuwAWWRIftwAavwAAAAEADwAAAAYAAQAAACIABAAhAAAAAgAiACMAAAAEACQAJgAnAAAACgABAAEAAAAAAAAAKAAAAAIAJA==
@@ -329,7 +326,11 @@ feedback:
   message: "Wrong answer in test #1\n\nCan&#39;t find &#39;Generation&#39; word in\
     \ the output!\n\nPlease find below the output of your program during this failed\
     \ test.\nNote that the &#39;&gt;&#39; character indicates the beginning of the\
-    \ input line.\n\n---\n\n&gt; 5\n   O \n  O  \nO  O \n    O\n    O\n   O \n  OOO\n\
-    \   OO\nO  OO\n   OO\n     \n  O  \n     \nO O  \nO O  \n O   \n     \n O"
-  time: Thu, 08 Jul 2021 01:52:05 UTC
+    \ input line.\n\n---\n\n&gt; 5\nOO OO\n   OO\nO OO \n O O \nO OO \n O   \n   \
+    \  \nOO   \nO    \n     \n     \nOO   \nOO   \nOO   \n     \n     \nOO   \n  O\
+    \ O\nOO   \n     \n     \nOO   \n  O O\nOO   \n     \n     \nOO   \n  O O\nOO\
+    \   \n     \n     \nOO   \n  O O\nOO   \n     \n     \nOO   \n  O O\nOO   \n \
+    \    \n     \nOO   \n  O O\nOO   \n     \n     \nOO   \n  O O\nOO   \n     \n\
+    \     \nOO   \n  O O\nOO"
+  time: Thu, 08 Jul 2021 02:29:15 UTC
 record: 6

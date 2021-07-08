@@ -9,10 +9,6 @@ import java.util.stream.Stream;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-//        int N = scanner.nextInt();
-//        int S = scanner.nextInt();
-//        int M = scanner.nextInt();
-//        Life world = new Life(N, S);
         var inArgs = Stream.of(scanner.nextLine().split(" "))
                 .map(String::new)
                 .collect(Collectors
