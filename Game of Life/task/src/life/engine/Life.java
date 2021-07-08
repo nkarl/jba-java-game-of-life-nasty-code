@@ -3,17 +3,13 @@ package life.engine;
 import java.util.Random;
 
 public class Life extends Model implements View {
-    enum LOCALE {CENTER, BORDER}
-
-    enum STATE {ALIVE, DEAD}
-
     /**
      * The Life Constructor.
      *
      * @param size size of this map.
      * @param seed the seeded value for the randomizing algorithm.
      */
-    public Life(int size, long seed) {
+    public Life(int size, int seed) {
         super(size);
         Random random = new Random(seed);
         for (int i = 0; i < size; ++i) {
@@ -29,105 +25,51 @@ public class Life extends Model implements View {
      * @param gens the total number of generations to propagate through.
      */
     public void propagate(int gens) {
-        for (int i = 0; i < gens; ++i)
+        for (int i = 0; i < gens; ++i) {
             generate();
-        view();
+        }
     }
 
-
-    /**
-     * Determine the state of life/death for the current generation of cells.
-     */
     void generate() {
-        STATE cell;
         Model future = new Model(this.size) {};
-        for (int i = 0; i < this.size - 1; ++i) {
-            for (int j = 0; j < this.size - 1; ++j) {
-                cell = liveOrDie(i, j);
-                if (cell == STATE.ALIVE && (this.map[i][j] == 1 || this.map[i][j] == 0)) {
-                    future.map[i][j] = 1;
+        for (int row = 0; row < this.size; ++row) {
+            for (int col = 0; col < this.size; ++col) {
+                int neighbors = neighbors(row, col);
+                if (neighbors == 3) {
+                    future.map[row][col] = 1;
+                }
+                else if (neighbors == 2) {
+                    future.map[row][col] = this.map[row][col];
                 } else {
-                    future.map[i][j] = this.map[i][j];
+                    future.map[row][col] = 0;
                 }
             }
         }
         this.map = future.map;
     }
 
-
-    /**
-     * @param a the x coordinate
-     * @param b the y coordinate
-     * @return the state of the cell
-     */
-    STATE liveOrDie(int a, int b) {
-        return (locate(a, b) == LOCALE.CENTER) ?
-                atCenter(a, b) : atBorder(a, b);
-    }
-
-
-    /**
-     * Check the location of the cell, who lives either at CENTER or BORDER.
-     *
-     * @param a x coordinate
-     * @param b y coordinate
-     * @return the locale of the cell
-     */
-    LOCALE locate(int a, int b) {
-        return ((a > 0 && a < this.size) && (b > 0 && b < this.size)) ?
-                LOCALE.CENTER : LOCALE.BORDER;
-    }
-
-
-    /**
-     * Determine a cell's life at the center.
-     *
-     * @param a x coordinate
-     * @param b y coordinate
-     * @return the state of the cell
-     */
-    STATE atCenter(int a, int b) {
-        int neighbors = 0;
-        for (int i = a - 1; i <= (a + 1); ++i) {
-            for (int j = b - 1; j <= (b + 1); ++j) {
-                if (i == a && j == b) continue;
-                if (this.map[i][j] == 1) ++neighbors;
-                if (neighbors > 3) break;
+    int neighbors(int row, int col) {
+        int count = 0;
+        for (int i = -1; i < 2; ++i) {
+            for (int j = -1; j < 2; ++j) {
+                if (i == 0 && j == 0) continue;
+                count += checkCell(i + row, j + col);
             }
         }
-        return (neighbors == 2 || neighbors == 3) ?
-            STATE.ALIVE : STATE.DEAD;
+        return count;
     }
 
+    int checkCell(int row, int col) {
+        row = checkIndex(row, this.size);
+        col = checkIndex(col, this.size);
+        return (this.map[row][col] == 1) ? 1 : 0;
+    }
 
-    /**
-     * Determine a cell's life at the borders.
-     *
-     * @param a x coordinate
-     * @param b y coordinate
-     * @return the state of the cell
-     */
-    STATE atBorder(int a, int b) {
-        int neighbors = 0;
-        int MIN = 0;
-        int MAX = this.size - 1;
-
-        int r = (a == 0) ? MAX : a - 1;  // row sentinel
-        for (int i = 0; i < 3; ++i) {
-            int c = (b == 0) ? MAX : b - 1;  // column sentinel
-            for (int j = 0; j < 3; ++j) {
-                if (this.map[r][c] == 1) ++neighbors;
-                if (neighbors > 3) break;
-//                neighbors += (this.map[r][c] == 1) ? 1 : 0;
-                ++c;
-                if (c > MAX) c = MIN; // wrap around
-                if (r == a && c == b) --neighbors;  // continue if self
-            }
-            ++r;
-            if (r > MAX) r = MIN; // wrap around
-        }
-        return (neighbors == 2 || neighbors == 3) ?
-                STATE.ALIVE : STATE.DEAD;
+    static int checkIndex(int index, int size) {
+        int MAX = size - 1;
+        if (index < 0) index = MAX;
+        if (index > MAX) index = 0;
+        return index;
     }
 
 

@@ -251,15 +251,9 @@ files:
         public void view();
     }
   learner_created: true
-- name: src/test.javaBAK
-  visible: true
-  learner_created: true
 feedback_link: https://hyperskill.org/projects/54/stages/295/implement#comment
-status: Failed
+status: Solved
 feedback:
-  message: "Wrong answer in test #2\n\nYour output is wrong!\n\nPlease find below\
-    \ the output of your program during this failed test.\nNote that the &#39;&gt;&#39;\
-    \ character indicates the beginning of the input line.\n\n---\n\n&gt; 8 1 10\n\
-    \ O    OO\n O    OO\n      O \n       O\n   O   O\nOO  O   \nOO    OO\nOO  O"
-  time: Wed, 07 Jul 2021 23:20:52 UTC
+  message: Congratulations!
+  time: Thu, 08 Jul 2021 01:13:39 UTC
 record: 9
