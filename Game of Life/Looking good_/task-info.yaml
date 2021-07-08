@@ -6,10 +6,199 @@ files:
   text: |
     package life;
 
+    import life.engine.Life;
+
+    import java.util.Scanner;
+    import java.util.stream.Collectors;
+    import java.util.stream.Stream;
+
     public class Main {
         public static void main(String[] args) {
-            System.out.println("Hello, world!");
+            Scanner scanner = new Scanner(System.in);
+            var inArgs = Stream.of(scanner.nextLine().split(" "))
+                    .map(String::new)
+                    .collect(Collectors
+                    .toList());
+            scanner.close();
+
+            int size, seed, gens = 10;
+            Life world;
+            if (inArgs.size() == 1) {
+                world = new Life(Integer.parseInt(inArgs.remove(0)));
+            } else {
+                size = Integer.parseInt(inArgs.remove(0));
+                seed = Integer.parseInt(inArgs.remove(0));
+                gens = Integer.parseInt(inArgs.remove(0));
+                world = new Life(size, seed);
+            }
+
+            world.propagate(gens);
+
+            scanner.close();
         }
+    }
+  learner_created: false
+- name: bin/main/myLifeTest.py
+  visible: true
+  learner_created: false
+- name: src/life/engine/Life.javaBAK
+  visible: true
+  learner_created: false
+- name: bin/main/life/engine/Life.javaBAK
+  visible: true
+  learner_created: false
+- name: src/life/engine/Life.java
+  visible: true
+  text: |
+    package life.engine;
+
+    import java.util.Random;
+
+    public class Life extends Model implements View {
+
+        /**
+         * The Life Constructor.
+         *
+         * @param size size of this map.
+         * @param seed the seeded value for the randomizing algorithm.
+         */
+        public Life(int size, int seed) {
+            super(size);
+            Random random = new Random(seed);
+            for (int i = 0; i < size; ++i) {
+                for (int j = 0; j < size; ++j)
+                    this.map[i][j] = (random.nextBoolean()) ? 1 : 0;
+            }
+        }
+
+        public Life(int size) {
+            super(size);
+            Random random = new Random();
+            for (int i = 0; i < size; ++i) {
+                for (int j = 0; j < size; ++j)
+                    this.map[i][j] = (random.nextBoolean()) ? 1 : 0;
+            }
+        }
+
+        /**
+         * @param gens the total number of generations to propagate through.
+         */
+        @Override
+        public void propagate(int gens) {
+            for (int i = 0; i < gens; ++i) {
+                view();
+                generate();
+            }
+            view();
+        }
+
+        @Override
+        void generate() {
+            Model future = new Model(this.size) {};
+            for (int row = 0; row < this.size; ++row) {
+                for (int col = 0; col < this.size; ++col) {
+                    int neighbors = neighbors(row, col);
+                    if (neighbors == 3) {
+                        future.map[row][col] = 1;
+                    }
+                    else if (neighbors == 2) {
+                        future.map[row][col] = this.map[row][col];
+                    } else {
+                        future.map[row][col] = 0;
+                    }
+                }
+            }
+            this.map = future.map;
+        }
+
+        int neighbors(int row, int col) {
+            int count = 0;
+            for (int i = -1; i < 2; ++i) {
+                for (int j = -1; j < 2; ++j) {
+                    if (i == 0 && j == 0) continue;
+                    count += checkCell(i + row, j + col);
+                }
+            }
+            return count;
+        }
+
+        int checkCell(int row, int col) {
+            row = checkIndex(row, this.size);
+            col = checkIndex(col, this.size);
+            return (this.map[row][col] == 1) ? 1 : 0;
+        }
+
+        static int checkIndex(int index, int size) {
+            int MAX = size - 1;
+            if (index < 0) index = MAX;
+            if (index > MAX) index = 0;
+            return index;
+        }
+
+
+        /**
+         * Interface: view the map of life.
+         */
+        @Override
+        public void view() {
+            for (var row : this.map) {
+                for (int cell : row) {
+                    if (cell == 1) System.out.print('O');
+                    else System.out.print(' ');
+                }
+                System.out.println();
+            }
+        }
+    }
+  learner_created: false
+- name: src/myLifeTest.py
+  visible: true
+  learner_created: false
+- name: bin/main/life/engine/Life$1.class
+  visible: true
+  text: |
+    //
+    // Source code recreated from a .class file by IntelliJ IDEA
+    // (powered by FernFlower decompiler)
+    //
+
+    package life.engine;
+
+    class Life$1 extends Model {
+        Life$1(Life var1, int $anonymous0) {
+            super($anonymous0);
+            this.this$0 = var1;
+        }
+    }
+  learner_created: false
+- name: src/life/engine/Model.java
+  visible: true
+  text: |
+    package life.engine;
+
+    public abstract class Model {
+        int size;
+        protected int[][] map;
+
+        Model(int size) {
+            this.size = size;
+            this.map = new int[size][size];
+        }
+
+        public void propagate(int gens) {}
+        void generate() {}
+    }
+  learner_created: false
+- name: src/test.javaBAK
+  visible: true
+  learner_created: false
+- name: src/life/engine/View.java
+  visible: true
+  text: |
+    package life.engine;
+
+    public interface View {
+        public void view();
     }
   learner_created: false
 - name: test/GameOfLifeTest.java
@@ -82,4 +271,4 @@ files:
   learner_created: false
 feedback_link: https://hyperskill.org/projects/54/stages/298/implement#comment
 status: Solved
-record: 7
+record: 3

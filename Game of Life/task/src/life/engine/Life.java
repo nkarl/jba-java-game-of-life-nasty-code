@@ -34,10 +34,8 @@ public class Life extends Model implements View {
     @Override
     public void propagate(int gens) {
         for (int i = 0; i < gens; ++i) {
-            view();
             generate();
         }
-        view();
     }
 
     @Override

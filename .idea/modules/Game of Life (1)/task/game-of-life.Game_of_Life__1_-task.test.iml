@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":Game_of_Life-task:test" external.linked.project.path="$MODULE_DIR$/../../../../Game of Life/task" external.root.project.path="$MODULE_DIR$/../../../.." external.system.id="GRADLE" external.system.module.group="game-of-life" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":Game_of_Life__1_-task:test" external.linked.project.path="$MODULE_DIR$/../../../../Game of Life (1)/task" external.root.project.path="$MODULE_DIR$/../../../.." external.system.id="GRADLE" external.system.module.group="game-of-life" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <output-test url="file://$MODULE_DIR$/../../../../Game of Life/task/out/test/classes" />
+    <output-test url="file://$MODULE_DIR$/../../../../Game of Life (1)/task/out/test/classes" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../../Game of Life/task/src/test" />
-    <content url="file://$MODULE_DIR$/../../../../Game of Life/task/test" />
+    <content url="file://$MODULE_DIR$/../../../../Game of Life (1)/task/src/test" />
+    <content url="file://$MODULE_DIR$/../../../../Game of Life (1)/task/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../Game of Life (1)/task/test" isTestSource="true" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="game-of-life.Game_of_Life-task.main" />
+    <orderEntry type="module" module-name="game-of-life.Game_of_Life__1_-task.main" />
     <orderEntry type="library" name="Gradle: com.github.hyperskill:hs-test:release-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Gradle: org.assertj:assertj-swing-junit:3.9.2" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
@@ -22,5 +24,5 @@
     <orderEntry type="library" name="Gradle: org.assertj:assertj-core:3.11.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.easytesting:fest-util:1.2.5" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="game-of-life.Game_of_Life-task.main" />
+  <component name="TestModuleProperties" production-module="game-of-life.Game_of_Life__1_-task.main" />
 </module>
