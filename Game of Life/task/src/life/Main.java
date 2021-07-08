@@ -7,12 +7,14 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int size = scanner.nextInt();
-        long seed = scanner.nextLong();
-        int gens = scanner.nextInt();
-        Life world = new Life(size, seed);
+        int N = scanner.nextInt();
+        int S = scanner.nextInt();
+        int M = scanner.nextInt();
+        Life world = new Life(N, S);
 
-        world.propagate(gens);
+        world.propagate(M);
         world.view();
+
+        scanner.close();
     }
 }

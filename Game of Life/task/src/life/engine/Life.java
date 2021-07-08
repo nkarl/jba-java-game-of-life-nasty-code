@@ -2,12 +2,15 @@ package life.engine;
 
 import java.util.Random;
 
-/*
-    Reference Gist from HeyMilkshake, moderator @JetBrains Academy's Discord
-    https://gist.github.com/msmilkshake/f887e0fed34521117c44be29a4471fdc
- */
 public class Life extends Model implements View {
-    public Life(int size, long seed) {
+
+    /**
+     * The Life Constructor.
+     *
+     * @param size size of this map.
+     * @param seed the seeded value for the randomizing algorithm.
+     */
+    public Life(int size, int seed) {
         super(size);
         Random random = new Random(seed);
         for (int i = 0; i < size; ++i) {
@@ -16,6 +19,9 @@ public class Life extends Model implements View {
         }
     }
 
+    /**
+     * @param gens the total number of generations to propagate through.
+     */
     public void propagate(int gens) {
         for (int i = 0; i < gens; ++i) {
             generate();
@@ -23,34 +29,45 @@ public class Life extends Model implements View {
     }
 
     void generate() {
-        for (int i = 0; i < this.size - 1; ++i) {
-            for (int j = 0; j < this.size - 1; ++j)
-                this.map[i][j] = live(i, j) ? 1 : 0;
+        Model future = new Model(this.size) {};
+        for (int row = 0; row < this.size; ++row) {
+            for (int col = 0; col < this.size; ++col) {
+                int neighbors = neighbors(row, col);
+                if (neighbors == 3) {
+                    future.map[row][col] = 1;
+                }
+                else if (neighbors == 2) {
+                    future.map[row][col] = this.map[row][col];
+                } else {
+                    future.map[row][col] = 0;
+                }
+            }
         }
+        this.map = future.map;
     }
 
-    boolean live(int row, int col) {
-        int count = countNeighbors(row, col);
-        return count == 2 || count == 3;
-    }
-
-    int countNeighbors(int row, int col) {
+    int neighbors(int row, int col) {
         int count = 0;
-        int r, c;
-
         for (int i = -1; i < 2; ++i) {
-            r = loopCoordinate(i + row);
             for (int j = -1; j < 2; ++j) {
-                c = loopCoordinate(j + col);
-                if (r == row && c == col) continue;
-                count += (this.map[r][c] == 1) ? 1 : 0;
+                if (i == 0 && j == 0) continue;
+                count += checkCell(i + row, j + col);
             }
         }
         return count;
     }
 
-    int loopCoordinate(int coordinate) {
-        return (coordinate + this.size) % this.size;
+    int checkCell(int row, int col) {
+        row = checkIndex(row, this.size);
+        col = checkIndex(col, this.size);
+        return (this.map[row][col] == 1) ? 1 : 0;
+    }
+
+    static int checkIndex(int index, int size) {
+        int MAX = size - 1;
+        if (index < 0) index = MAX;
+        if (index > MAX) index = 0;
+        return index;
     }
 
 
